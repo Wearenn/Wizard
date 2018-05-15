@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="63.0" layoutY="26.0" text="Select the distance metric for comparing the present and the past trends :" />
+      <RadioButton layoutX="63.0" layoutY="73.0" mnemonicParsing="false" text="Manhattan distance">
+         <toggleGroup>
+            <ToggleGroup fx:id="group" />
+         </toggleGroup>
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </RadioButton>
+      <RadioButton layoutX="63.0" layoutY="248.0" mnemonicParsing="false" text="Ratio" toggleGroup="$group">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </RadioButton>
+      <RadioButton layoutX="63.0" layoutY="192.0" mnemonicParsing="false" text="Scalar difference" toggleGroup="$group">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </RadioButton>
+      <RadioButton layoutX="63.0" layoutY="130.0" mnemonicParsing="false" text="Euclidean distance" toggleGroup="$group">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </RadioButton>
+      <Label layoutX="89.0" layoutY="90.0" text="Sum of pairwise absolute differences in each dimension" />
+      <Label layoutX="89.0" layoutY="147.0" text="Geometrical distance in n dimensions" />
+      <Label layoutX="89.0" layoutY="209.0" text="Plain subtraction of two numbers" />
+      <Label layoutX="89.0" layoutY="265.0" text="Plain division of two numbers" />
+   </children>
+</AnchorPane>

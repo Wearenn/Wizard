@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CtrlPattern">
+   <children>
+      <Label layoutX="54.0" layoutY="14.0" prefHeight="17.0" prefWidth="492.0" text="Select the data mining pattern you wish to instantiate :" />
+      <RadioButton fx:id="RbSelfCorrelated" layoutX="72.0" layoutY="117.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="189.0" text="Self-correlated trend distance">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+         <toggleGroup>
+            <ToggleGroup fx:id="rb_choix" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="RbPatternBased" layoutX="72.0" layoutY="200.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="197.0" text="Pattern-based trend distance" toggleGroup="$rb_choix">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </RadioButton>
+      <Label layoutX="72.0" layoutY="134.0" prefHeight="38.0" prefWidth="512.0" text="Evaluates the similarity of a trend computed on the presentwith the same trend computed over a past window." />
+      <Label layoutX="72.0" layoutY="217.0" prefHeight="38.0" prefWidth="512.0" text="Evaluates the similarity of a trend computed on the presentwith a reference trend provided externally." />
+   </children>
+</AnchorPane>
