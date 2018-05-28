@@ -1,11 +1,15 @@
 package controller;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Toggle;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -29,9 +33,9 @@ public class CtrlWizard implements Initializable {
     private CtrlResume ctrlResume;
 
     @FXML
-    private Button BtnBack, BtnNext;
+    public Button BtnBack, BtnNext;
     @FXML
-    public AnchorPane ApDetails, ApCorp;
+    private AnchorPane ApDetails;
     @FXML
     private Label LblPattern,LblInput,LblWindows,LblTrend,LblDistance,LblThreshold,LblNumber;
 
@@ -46,6 +50,7 @@ public class CtrlWizard implements Initializable {
         }
         LblNumber.setText("1");
         BtnBack.setDisable(true);
+        BtnNext.setDisable(true);
         LblPattern.setBorder(new Border(new BorderStroke(Color.DARKGRAY, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
         BtnNext.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -61,6 +66,15 @@ public class CtrlWizard implements Initializable {
             @Override
             public void handle(MouseEvent event) {
                 switchBackPage();
+            }
+        });
+
+        ctrlPattern.getBtnContinue().setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (ctrlPattern.isSelected()){
+                    BtnNext.setDisable(false);
+                }
             }
         });
     }
@@ -81,6 +95,17 @@ public class CtrlWizard implements Initializable {
             loader = new FXMLLoader(getClass().getResource(name));
             ApDetails.getChildren().setAll((AnchorPane)loader.load());
             ctrlInputStream = loader.getController();
+
+            BtnNext.setDisable(true);
+
+            ctrlInputStream.getBtnContinue().setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    if (ctrlInputStream.isSelected()) {
+                        BtnNext.setDisable(false);
+                    }
+                }
+            });
 
             //GUI updates
             LblNumber.setText("2");
@@ -113,6 +138,17 @@ public class CtrlWizard implements Initializable {
             ApDetails.getChildren().setAll((AnchorPane)loader.load());
             ctrlTrend = loader.getController();
 
+            BtnNext.setDisable(true);
+
+            ctrlTrend.getBtnContinue().setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    if (ctrlTrend.isSelected()){
+                        BtnNext.setDisable(false);
+                    }
+                }
+            });
+
             //GUI updates
             LblNumber.setText("4");
             LblWindows.setBorder(null);
@@ -128,6 +164,17 @@ public class CtrlWizard implements Initializable {
             ApDetails.getChildren().setAll((AnchorPane)loader.load());
             ctrlDistance = loader.getController();
 
+            BtnNext.setDisable(true);
+
+            ctrlDistance.getBtnContinue().setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    if (ctrlDistance.isSelected()){
+                        BtnNext.setDisable(false);
+                    }
+                }
+            });
+
             //GUI updates
             LblNumber.setText("5");
             LblTrend.setBorder(null);
@@ -142,6 +189,17 @@ public class CtrlWizard implements Initializable {
             loader = new FXMLLoader(getClass().getResource(name));
             ApDetails.getChildren().setAll((AnchorPane)loader.load());
             ctrlThreshold = loader.getController();
+
+            BtnNext.setDisable(true);
+
+            ctrlThreshold.getBtnContinue().setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    if (ctrlThreshold.isSelected()) {
+                        BtnNext.setDisable(false);
+                    }
+                }
+            });
 
             //GUI updates
             LblNumber.setText("6");
@@ -172,27 +230,32 @@ public class CtrlWizard implements Initializable {
         if (LblNumber.getText().equals("2")) {
             name = "../application/xml/Pattern.fxml";
             LblNumber.setText("1");
+            BtnNext.setDisable(true);
             BtnBack.setDisable(true);
             LblInput.setBorder(null);
             LblPattern.setBorder(new Border(new BorderStroke(Color.DARKGRAY, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
         } else if (LblNumber.getText().equals("3")){
             name = "../application/xml/Input_stream.fxml";
             LblNumber.setText("2");
+            BtnNext.setDisable(true);
             LblWindows.setBorder(null);
             LblInput.setBorder(new Border(new BorderStroke(Color.DARKGRAY, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
         } else if (LblNumber.getText().equals("4")){
             name = "../application/xml/Windows.fxml";
             LblNumber.setText("3");
+            BtnNext.setDisable(true);
             LblTrend.setBorder(null);
             LblWindows.setBorder(new Border(new BorderStroke(Color.DARKGRAY, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
         } else if (LblNumber.getText().equals("5")){
             name = "../application/xml/Trend.fxml";
             LblNumber.setText("4");
+            BtnNext.setDisable(true);
             LblDistance.setBorder(null);
             LblTrend.setBorder(new Border(new BorderStroke(Color.DARKGRAY, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
         } else if (LblNumber.getText().equals("6")){
             name = "../application/xml/Distance.fxml";
             LblNumber.setText("5");
+            BtnNext.setDisable(true);
             BtnNext.setText("Next >");
             LblThreshold.setBorder(null);
             LblDistance.setBorder(new Border(new BorderStroke(Color.DARKGRAY, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));

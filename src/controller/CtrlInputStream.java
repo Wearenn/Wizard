@@ -30,6 +30,16 @@ public class CtrlInputStream implements Initializable {
     private Label LblBrowserL, LblBrowserI;
     @FXML
     private TextField TfPort;
+    @FXML
+    private Button BtnContinue;
+
+    public Button getBtnContinue() {
+        return BtnContinue;
+    }
+
+    public TextField getTfPort() {
+        return TfPort;
+    }
 
     //private Desktop desktop = Desktop.getDesktop();
     private String Filename = null;
@@ -46,7 +56,7 @@ public class CtrlInputStream implements Initializable {
                 Node node = (Node) event.getSource();
                 File file = fileChooser.showOpenDialog(node.getScene().getWindow());
                 if (file != null) {
-                    openFile(file);
+                    openFileI(file);
                 }
             }
         });
@@ -60,7 +70,7 @@ public class CtrlInputStream implements Initializable {
                 Node node = (Node) event.getSource();
                 File file = fileChooser.showOpenDialog(node.getScene().getWindow());
                 if (file != null) {
-                    openFile(file);
+                    openFileL(file);
                 }
                 //fileChooser();
             }
@@ -75,7 +85,6 @@ public class CtrlInputStream implements Initializable {
      * @throws IOException
      */
     public void writeData() throws IOException {
-
         //write new informations
         FileWriter fichier = new FileWriter(new File("./src/txt/Choices.txt"), true);
         fichier.write("\n");
@@ -84,17 +93,12 @@ public class CtrlInputStream implements Initializable {
             if (RbPreRecorded.isSelected() && !LblBrowserL.getText().equals("No file selected")){
                 fichier.write ("pre-recorded input");
                 fichier.write("\n" + Filename);
-            } else if (RbStandardInput.isSelected()){
+            } else if (RbStandardInput.isSelected() && !LblBrowserI.getText().equals("No file selected")){
                 fichier.write ("standard input");
                 fichier.write("\n" + Filename);
-            } else if (RbTCPConnection.isSelected() && !TfPort.getText().equals("")){
+            } else if (RbTCPConnection.isSelected()){
                 fichier.write ("TCP Connection input");
                 fichier.write("\n" + TfPort.getText());
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("You must make a choice before going far !");
-                alert.showAndWait();
             }
         } catch (IOException e) {
             e.getMessage();
@@ -109,8 +113,50 @@ public class CtrlInputStream implements Initializable {
         File file = chooser.showOpenDialog(new Stage());
     }*/
 
-    private void openFile(File file) {
+    private void openFileI(File file) {
+        LblBrowserI.setText(file.getName());
+        Filename = file.getName();
+    }
+
+    private void openFileL(File file) {
         LblBrowserL.setText(file.getName());
         Filename = file.getName();
+    }
+
+    /**
+     * Verify if a radio Button is selected and verify if all conditions are respected
+     */
+    public boolean isSelected(){
+        boolean isSelected = false;
+        if ((RbPreRecorded.isSelected() && !LblBrowserL.getText().equals("No file selected"))
+                || (RbStandardInput.isSelected() && !LblBrowserI.getText().equals("No file selected"))
+                || (RbTCPConnection.isSelected() && isAnInt(getTfPort().getText()))){
+            isSelected = true;
+        } else if (RbTCPConnection.isSelected() && !isAnInt(getTfPort().getText())){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText(null);
+            alert.setTitle("Warning");
+            alert.setContentText("You must type an integer !");
+            alert.showAndWait();
+        } else if ((RbPreRecorded.isSelected() && LblBrowserL.getText().equals("No file selected"))
+                || (RbStandardInput.isSelected() && LblBrowserI.getText().equals("No file selected"))){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText(null);
+            alert.setTitle("Warning");
+            alert.setContentText("You must select a log file");
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText(null);
+            alert.setTitle("Warning");
+            alert.setContentText("You must make a choice before going far or fill all fields!");
+            alert.showAndWait();
+        }
+        return isSelected;
+    }
+
+    public boolean isAnInt(String string){
+        if (string.matches("[0-9]*") && !string.equals(""))  return true;
+        return false;
     }
 }

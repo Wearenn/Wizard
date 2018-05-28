@@ -1,1 +1,8 @@
 SelfCorrelated
+TCP Connection input
+12
+1hr 0min 0sec
+2hr 0min 0sec
+Size
+Euclidean distance
+are below the value of 0.5

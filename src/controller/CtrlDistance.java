@@ -2,6 +2,7 @@ package controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 
 import java.io.File;
@@ -12,6 +13,12 @@ public class CtrlDistance {
 
     @FXML 
     private RadioButton RbManhattan, RbEuclidean, RbScalar, RbRatio;
+    @FXML
+    private Button BtnContinue;
+
+    public Button getBtnContinue(){
+        return BtnContinue;
+    }
 
     public void writeData() throws IOException {
 
@@ -24,19 +31,31 @@ public class CtrlDistance {
             } else if (RbEuclidean.isSelected()){
                 fichier.write ("Euclidean distance");
             } else if (RbScalar.isSelected()){
-                fichier.write ("Scalar distance");
+                fichier.write ("Scalar difference");
             } else if (RbRatio.isSelected()){
-                fichier.write ("Ratio distance");
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("You must make a choice before going far !");
-                alert.showAndWait();
+                fichier.write ("Ratio");
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         fichier.close();
+    }
+
+    /**
+     * Verify if a radio Button is selected
+     */
+    public boolean isSelected(){
+        boolean isSelected = false;
+        if (RbManhattan.isSelected() || RbEuclidean.isSelected() || RbScalar.isSelected() || RbRatio.isSelected()) {
+            isSelected = true;
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText(null);
+            alert.setTitle("Warning");
+            alert.setContentText("You must make a choice before going far or fill all fields!");
+            alert.showAndWait();
+        }
+        return isSelected;
     }
 }

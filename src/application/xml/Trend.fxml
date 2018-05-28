@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Slider?>
@@ -31,23 +32,26 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
+         <toggleGroup>
+            <ToggleGroup fx:id="group2" />
+         </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="RbVectorOfM" layoutX="92.0" layoutY="207.0" mnemonicParsing="false" text="Vector of moments">
+      <RadioButton fx:id="RbVectorOfM" layoutX="92.0" layoutY="207.0" mnemonicParsing="false" text="Vector of moments" toggleGroup="$group2">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="RbDistinctOcc" layoutX="92.0" layoutY="273.0" mnemonicParsing="false" text="Distinct occurrences">
+      <RadioButton fx:id="RbDistinctOcc" layoutX="92.0" layoutY="273.0" mnemonicParsing="false" text="Distinct occurrences" toggleGroup="$group2">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="RbValueDis" layoutX="92.0" layoutY="312.0" mnemonicParsing="false" text="Value distribution">
+      <RadioButton fx:id="RbValueDis" layoutX="92.0" layoutY="312.0" mnemonicParsing="false" text="Value distribution" toggleGroup="$group2">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="RbCumulativeSum" layoutX="92.0" layoutY="354.0" mnemonicParsing="false" text="Cumulative sum">
+      <RadioButton fx:id="RbCumulativeSum" layoutX="92.0" layoutY="354.0" mnemonicParsing="false" text="Cumulative sum" toggleGroup="$group2">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -58,5 +62,6 @@
       <Label layoutX="113.0" layoutY="329.0" text="The distribution of values observed in the window" />
       <Label layoutX="113.0" layoutY="371.0" text="The sum of all values over the window" />
       <Slider fx:id="SliderVector" blockIncrement="1.0" layoutX="113.0" layoutY="241.0" majorTickUnit="1.0" max="6.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="2.0" />
+      <Button fx:id="BtnContinue" layoutX="479.0" layoutY="374.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="69.0" text="Continue" />
    </children>
 </AnchorPane>

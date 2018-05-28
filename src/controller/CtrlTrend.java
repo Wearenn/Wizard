@@ -1,10 +1,7 @@
 package controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -20,6 +17,12 @@ public class CtrlTrend {
     private TextField TxtOther;
     @FXML
     private Slider SliderVector;
+    @FXML
+    private Button BtnContinue;
+
+    public Button getBtnContinue(){
+        return BtnContinue;
+    }
 
     public void writeData() throws IOException {
         //write new informations
@@ -28,35 +31,63 @@ public class CtrlTrend {
 
         try {
             if (RbDirectSize.isSelected()){
-                fichier.write ("Manhattan distance");
+                fichier.write ("Direct Value");
             } else if (RbSize.isSelected()){
-                fichier.write ("Euclidean distance");
-            } else if (RbOther.isSelected()){
-                fichier.write ("Scalar distance");
+                fichier.write ("Size");
+            } else if (RbOther.isSelected() && !TxtOther.getText().equals("")){
+                fichier.write ("Other " + TxtOther.getText());
             } else if (RbSource.isSelected()){
-                fichier.write ("Ratio distance");
+                fichier.write ("Source");
             } else if (RbDestination.isSelected()){
-                fichier.write ("Ratio distance");
+                fichier.write ("Destination");
             } else if (RbRunningA.isSelected()){
-                fichier.write ("Ratio distance");
+                fichier.write ("Running average");
             } else if (RbVectorOfM.isSelected()){
-                fichier.write ("Ratio distance");
+                fichier.write ("Vector of moments " + SliderVector.getValue());
             } else if (RbDistinctOcc.isSelected()){
-                fichier.write ("Ratio distance");
+                fichier.write ("Distinct occurrences");
             } else if (RbValueDis.isSelected()){
-                fichier.write ("Ratio distance");
+                fichier.write ("Value distribution");
             } else if (RbCumulativeSum.isSelected()){
-                fichier.write ("Ratio distance");
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("You must make a choice before going far !");
-                alert.showAndWait();
+                fichier.write ("Cumulative sum");
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         fichier.close();
+    }
+
+    /**
+     * Verify if a radio Button is selected
+     */
+    public boolean isSelected(){
+        boolean isSelected = false;
+        if (((RbDirectSize.isSelected() || RbSize.isSelected() || (RbOther.isSelected() && !TxtOther.getText().equals(""))
+                || RbSource.isSelected() || RbDestination.isSelected()) && (RbRunningA.isSelected() || RbVectorOfM.isSelected()
+                || RbDistinctOcc.isSelected() || RbValueDis.isSelected() || RbCumulativeSum.isSelected()))){
+            isSelected = true;
+        } else if (RbOther.isSelected() && TxtOther.getText().equals("")){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText(null);
+            alert.setTitle("Warning");
+            alert.setContentText("You must type a value");
+            alert.showAndWait();
+        } else if (!(RbDirectSize.isSelected() || RbSize.isSelected() || (RbOther.isSelected() && !TxtOther.getText().equals(""))
+                || RbSource.isSelected() || RbDestination.isSelected())){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText(null);
+            alert.setTitle("Warning");
+            alert.setContentText("You must make a choice on the first part");
+            alert.showAndWait();
+        } else if (!(RbRunningA.isSelected() || RbVectorOfM.isSelected() || RbDistinctOcc.isSelected() || RbValueDis.isSelected()
+                || RbCumulativeSum.isSelected())){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText(null);
+            alert.setTitle("Warning");
+            alert.setContentText("You must make a choice on the second part");
+            alert.showAndWait();
+        }
+        return isSelected;
     }
 }

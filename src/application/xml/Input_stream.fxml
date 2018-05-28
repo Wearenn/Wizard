@@ -32,16 +32,13 @@
             <Font name="System Italic" size="12.0" />
          </font>
       </Label>
-      <RadioButton fx:id="RbTCPConnection" layoutX="90.0" layoutY="283.0" mnemonicParsing="false" text="TCP connection">
+      <RadioButton fx:id="RbTCPConnection" layoutX="90.0" layoutY="283.0" mnemonicParsing="false" selected="true" text="TCP connection" toggleGroup="$group">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
-         <toggleGroup>
-            <ToggleGroup fx:id="group1" />
-         </toggleGroup>
       </RadioButton>
       <Label layoutX="120.0" layoutY="309.0" text="Captures packets from a local TCP port" />
-      <TextField fx:id="TfPort" layoutX="122.0" layoutY="334.0" prefHeight="25.0" prefWidth="57.0" />
+      <TextField fx:id="TfPort" layoutX="122.0" layoutY="334.0" prefHeight="25.0" prefWidth="57.0" text="12" />
       <Label layoutX="188.0" layoutY="338.0" text="Port" />
       <Button fx:id="BtnBrowserI" layoutX="123.0" layoutY="234.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="80.0" text="Browse..." />
       <Label fx:id="LblBrowserI" layoutX="221.0" layoutY="242.0" prefHeight="17.0" prefWidth="117.0" text="No file selected">
@@ -49,5 +46,6 @@
             <Font name="System Italic" size="12.0" />
          </font>
       </Label>
+      <Button fx:id="BtnContinue" layoutX="481.0" layoutY="361.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="69.0" text="Continue" />
    </children>
 </AnchorPane>

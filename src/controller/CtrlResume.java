@@ -36,6 +36,7 @@ public class CtrlResume implements Initializable {
                 System.out.println(sCurrentLine);
             }
 
+            System.out.println("\n");
             getDataBack();
         } catch (IOException e){
             e.printStackTrace();
@@ -97,7 +98,7 @@ public class CtrlResume implements Initializable {
             } else if (sCurrentLine.contains("hr")) {
                 StringData.add(sCurrentLine);
                 System.out.println(sCurrentLine);
-            } else if (sCurrentLine.contains("distance")) {
+            } else if (sCurrentLine.contains("distance") || sCurrentLine.equals("Scalar difference") || sCurrentLine.equals("Ratio")) {
                 StringData.add(sCurrentLine);
                 System.out.println(sCurrentLine);
             } else if (sCurrentLine.contains("the value of")) {

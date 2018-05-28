@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -29,7 +30,15 @@ public class CtrlPattern implements Initializable {
     @FXML
     private Label LblSelf, LblPattern;
     @FXML
-    private ToggleGroup rb_choix;
+    private Button BtnContinue;
+
+    public Button getBtnContinue(){
+        return BtnContinue;
+    }
+
+    public TextField getTfValue() {
+        return TfValue;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -57,16 +66,39 @@ public class CtrlPattern implements Initializable {
                 fichier.write ("SelfCorrelated");
             } else if (RbPatternBased.isSelected()) {
                 fichier.write ("PatternBased " + TfValue.getText());
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("You must make a choice before going far !");
-                alert.showAndWait();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         fichier.close();
+    }
+
+    /**
+     * Verify if a radio Button is selected and verify if all conditions are respected
+     */
+    public boolean isSelected(){
+        boolean isSelected = false;
+        if (RbSelfCorrelated.isSelected() || (RbPatternBased.isSelected() && isAnInt(getTfValue().getText()))){
+            isSelected = true;
+        } else if (RbPatternBased.isSelected() && !isAnInt(getTfValue().getText())) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText(null);
+            alert.setTitle("Warning");
+            alert.setContentText("You must type an integer !");
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText(null);
+            alert.setTitle("Warning");
+            alert.setContentText("You must make a choice before going far or fill all fields!");
+            alert.showAndWait();
+        }
+        return isSelected;
+    }
+
+    public boolean isAnInt(String string){
+        if (string.matches("[0-9]*") && !string.equals(""))  return true;
+        return false;
     }
 }
