@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CtrlWindows">
    <children>
-      <Label layoutX="68.0" layoutY="32.0" text="Select the time windows for the evaluation of the pattern" />
+      <Label layoutX="68.0" layoutY="32.0" text="Select the time windows for the evaluation of the pattern :" />
       <Label layoutX="98.0" layoutY="87.0" text="Past window (m)">
          <font>
             <Font name="System Bold" size="12.0" />
@@ -20,5 +20,21 @@
          </font>
       </Label>
       <Label layoutX="98.0" layoutY="225.0" text="Width of the window where the present trend is computed" />
+      <Label fx:id="LblPastW" layoutX="98.0" layoutY="138.0" prefHeight="17.0" prefWidth="332.0" text="Currently :                      hr                       min                     sec">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="HoursM" layoutX="158.0" layoutY="134.0" prefHeight="25.0" prefWidth="63.0" />
+      <ComboBox fx:id="MinutesM" layoutX="245.0" layoutY="134.0" prefHeight="25.0" prefWidth="63.0" />
+      <ComboBox fx:id="SecondsM" layoutX="333.0" layoutY="134.0" prefHeight="25.0" prefWidth="63.0" />
+      <Label fx:id="LblPastW1" layoutX="98.0" layoutY="261.0" prefHeight="17.0" prefWidth="332.0" text="Currently :                      hr                       min                     sec">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="HoursN" layoutX="158.0" layoutY="257.0" prefHeight="25.0" prefWidth="63.0" />
+      <ComboBox fx:id="MinutesN" layoutX="245.0" layoutY="257.0" prefHeight="25.0" prefWidth="63.0" />
+      <ComboBox fx:id="SecondsN" layoutX="333.0" layoutY="257.0" prefHeight="25.0" prefWidth="63.0" />
    </children>
 </AnchorPane>

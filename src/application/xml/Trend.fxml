@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CtrlTrend">
    <children>
       <Label layoutX="77.0" layoutY="26.0" text="Select the element of each event to use for computing the trend :" />
       <Pane fx:id="PaneGroup" layoutX="77.0" layoutY="43.0" prefHeight="80.0" prefWidth="264.0">
@@ -28,27 +27,27 @@
          </children>
       </Pane>
       <Label layoutX="77.0" layoutY="139.0" text="Select the trend to compute over the stream" />
-      <RadioButton layoutX="92.0" layoutY="166.0" mnemonicParsing="false" text="Running average">
+      <RadioButton fx:id="RbRunningA" layoutX="92.0" layoutY="166.0" mnemonicParsing="false" text="Running average">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </RadioButton>
-      <RadioButton layoutX="92.0" layoutY="207.0" mnemonicParsing="false" text="Vector of moments">
+      <RadioButton fx:id="RbVectorOfM" layoutX="92.0" layoutY="207.0" mnemonicParsing="false" text="Vector of moments">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </RadioButton>
-      <RadioButton layoutX="92.0" layoutY="273.0" mnemonicParsing="false" text="Distinct occurrences">
+      <RadioButton fx:id="RbDistinctOcc" layoutX="92.0" layoutY="273.0" mnemonicParsing="false" text="Distinct occurrences">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </RadioButton>
-      <RadioButton layoutX="92.0" layoutY="312.0" mnemonicParsing="false" text="Value distribution">
+      <RadioButton fx:id="RbValueDis" layoutX="92.0" layoutY="312.0" mnemonicParsing="false" text="Value distribution">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </RadioButton>
-      <RadioButton layoutX="92.0" layoutY="354.0" mnemonicParsing="false" text="Cumulative sum">
+      <RadioButton fx:id="RbCumulativeSum" layoutX="92.0" layoutY="354.0" mnemonicParsing="false" text="Cumulative sum">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -58,6 +57,6 @@
       <Label layoutX="113.0" layoutY="290.0" text="The number of distinct values observed in the window" />
       <Label layoutX="113.0" layoutY="329.0" text="The distribution of values observed in the window" />
       <Label layoutX="113.0" layoutY="371.0" text="The sum of all values over the window" />
-      <Slider blockIncrement="1.0" layoutX="113.0" layoutY="241.0" majorTickUnit="1.0" max="6.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="2.0" />
+      <Slider fx:id="SliderVector" blockIncrement="1.0" layoutX="113.0" layoutY="241.0" majorTickUnit="1.0" max="6.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="2.0" />
    </children>
 </AnchorPane>

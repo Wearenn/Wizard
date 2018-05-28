@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -22,7 +23,9 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </RadioButton>
-      <Label layoutX="72.0" layoutY="134.0" prefHeight="38.0" prefWidth="512.0" text="Evaluates the similarity of a trend computed on the presentwith the same trend computed over a past window." />
-      <Label layoutX="72.0" layoutY="217.0" prefHeight="38.0" prefWidth="512.0" text="Evaluates the similarity of a trend computed on the presentwith a reference trend provided externally." />
+      <Label fx:id="LblSelf" layoutX="72.0" layoutY="134.0" prefHeight="38.0" prefWidth="406.0" />
+      <Label fx:id="LblPattern" layoutX="72.0" layoutY="217.0" prefHeight="31.0" prefWidth="512.0" />
+      <TextField fx:id="TfValue" layoutX="113.0" layoutY="255.0" prefHeight="25.0" prefWidth="58.0" />
+      <Label layoutX="72.0" layoutY="259.0" text="Value :" />
    </children>
 </AnchorPane>

@@ -7,8 +7,8 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CtrlResume">
    <children>
       <Label layoutX="51.0" layoutY="32.0" prefHeight="17.0" prefWidth="359.0" text="To summarize, you requested the following data mining operation:" />
-      <Label fx:id="LblResume" alignment="TOP_LEFT" contentDisplay="RIGHT" layoutX="99.0" layoutY="84.0" prefHeight="110.0" prefWidth="225.0" text="Label" />
-      <Label fx:id="LblAlert" alignment="TOP_LEFT" layoutX="99.0" layoutY="200.0" prefHeight="110.0" prefWidth="225.0" text="Label" />
+      <Label fx:id="LblResume" alignment="TOP_LEFT" contentDisplay="RIGHT" layoutX="99.0" layoutY="84.0" prefHeight="110.0" prefWidth="359.0" text="Label" />
+      <Label fx:id="LblAlert" alignment="TOP_LEFT" layoutX="99.0" layoutY="200.0" prefHeight="110.0" prefWidth="359.0" text="Label" />
       <Button fx:id="BtnSave" layoutX="51.0" layoutY="336.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="77.0" text="Save..." />
    </children>
 </AnchorPane>

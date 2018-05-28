@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -18,6 +19,7 @@ public class Main extends Application {
             Parent root = FXMLLoader.load(getClass().getResource("./xml/Wizard.fxml"));
             primaryStage.setTitle("BeepBeep Data Mining Wizard");
             primaryStage.setScene(new Scene(root,760,465));
+            primaryStage.getIcons().add(new Image("img/LIF_sigle.png"));
             primaryStage.setResizable(false);
             primaryStage.show();
         }catch (Exception e){

@@ -4,35 +4,47 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CtrlInputStream">
    <children>
       <Label layoutX="81.0" layoutY="30.0" text="Select the input stream to use as the source :" />
-      <RadioButton layoutX="91.0" layoutY="91.0" mnemonicParsing="false" text="Pre-recorded log">
+      <RadioButton fx:id="RbPreRecorded" layoutX="91.0" layoutY="91.0" mnemonicParsing="false" text="Pre-recorded log">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
+         <toggleGroup>
+            <ToggleGroup fx:id="group" />
+         </toggleGroup>
       </RadioButton>
-      <RadioButton layoutX="91.0" layoutY="243.0" mnemonicParsing="false" text="TCP connection">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </RadioButton>
-      <RadioButton layoutX="91.0" layoutY="183.0" mnemonicParsing="false" text="Standard input">
+      <RadioButton fx:id="RbStandardInput" layoutX="91.0" layoutY="183.0" mnemonicParsing="false" selected="true" text="Standard input" toggleGroup="$group">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </RadioButton>
       <Label layoutX="121.0" layoutY="116.0" text="Reads a stream from a file or a named pipe" />
       <Label layoutX="121.0" layoutY="210.0" text="Reads input events from stdin" />
-      <Label layoutX="121.0" layoutY="269.0" text="Captures packets from a local TCP port" />
-      <TextField layoutX="123.0" layoutY="294.0" prefHeight="25.0" prefWidth="57.0" />
-      <Label layoutX="189.0" layoutY="298.0" text="Port" />
-      <Button layoutX="123.0" layoutY="140.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="80.0" text="Browse..." />
-      <Label layoutX="221.0" layoutY="148.0" prefHeight="17.0" prefWidth="117.0" text="No file selected">
+      <Button fx:id="BtnBrowserL" layoutX="123.0" layoutY="140.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="80.0" text="Browse..." />
+      <Label fx:id="LblBrowserL" layoutX="221.0" layoutY="148.0" prefHeight="17.0" prefWidth="117.0" text="No file selected">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </Label>
+      <RadioButton fx:id="RbTCPConnection" layoutX="90.0" layoutY="283.0" mnemonicParsing="false" text="TCP connection">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+         <toggleGroup>
+            <ToggleGroup fx:id="group1" />
+         </toggleGroup>
+      </RadioButton>
+      <Label layoutX="120.0" layoutY="309.0" text="Captures packets from a local TCP port" />
+      <TextField fx:id="TfPort" layoutX="122.0" layoutY="334.0" prefHeight="25.0" prefWidth="57.0" />
+      <Label layoutX="188.0" layoutY="338.0" text="Port" />
+      <Button fx:id="BtnBrowserI" layoutX="123.0" layoutY="234.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="80.0" text="Browse..." />
+      <Label fx:id="LblBrowserI" layoutX="221.0" layoutY="242.0" prefHeight="17.0" prefWidth="117.0" text="No file selected">
          <font>
             <Font name="System Italic" size="12.0" />
          </font>

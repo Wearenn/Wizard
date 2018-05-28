@@ -6,17 +6,16 @@
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CtrlThreshold">
    <children>
       <Label layoutX="81.0" layoutY="23.0" text="Trigger an alarm when the distance becomes :" />
-      <RadioButton layoutX="98.0" layoutY="79.0" mnemonicParsing="false" text="Smaller than">
+      <RadioButton fx:id="RbSmaller" layoutX="98.0" layoutY="79.0" mnemonicParsing="false" selected="true" text="Smaller than">
          <toggleGroup>
             <ToggleGroup fx:id="group" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton layoutX="98.0" layoutY="120.0" mnemonicParsing="false" text="Larger than" toggleGroup="$group" />
+      <RadioButton fx:id="RbLarger" layoutX="98.0" layoutY="120.0" mnemonicParsing="false" text="Larger than" toggleGroup="$group" />
       <Label layoutX="81.0" layoutY="183.0" text="the following threshold:" />
-      <TextField layoutX="226.0" layoutY="179.0" prefHeight="25.0" prefWidth="54.0" promptText="0.5" />
+      <TextField fx:id="TfThreshold" layoutX="226.0" layoutY="179.0" prefHeight="25.0" prefWidth="54.0" promptText="0.5" text="0.5" />
    </children>
 </AnchorPane>

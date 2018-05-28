@@ -1,27 +1,72 @@
 package controller;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.RadioButton;
-import data.DAO.DaoPattern;
+import javafx.scene.Parent;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for the first page Pattern.fxml
+ * package: application.xml
+ */
+
 public class CtrlPattern implements Initializable {
+
     @FXML
-    private RadioButton RbSelfCorrelated, RbPatternBased;
+    public RadioButton RbSelfCorrelated, RbPatternBased;
+    @FXML
+    private TextField TfValue;
+    @FXML
+    private Label LblSelf, LblPattern;
+    @FXML
+    private ToggleGroup rb_choix;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        DaoPattern.getInstance();
+        LblSelf.setText("Evaluates the similarity of a trend computed on the presentwith \nthe same trend computed over a past window.");
+        LblPattern.setText("Evaluates the similarity of a trend computed on the presentwith \na reference trend provided externally.");
+    }
 
-        if (RbSelfCorrelated.isSelected()){
+    /**
+     * We save in file "Choices.txt" the id of the user choice
+     * Here the user have two choices :
+     * Select Self-Correlated trend distance (id = SelfCorrelated) or Pattern-Based trend distance (id = PatternBased)
+     *
+     * @throws IOException
+     */
+    public void writeData() throws IOException {
+        //create the file if not created
+        File file = new File("./src/txt/Choices.txt");
+        file.createNewFile();
 
-        } else if (RbPatternBased.isSelected()){
+        //write new informations
+        FileWriter fichier = new FileWriter(file);
 
-        } else {
-            System.out.println("You must make a choice !");
+        try {
+            if (RbSelfCorrelated.isSelected()) {
+                fichier.write ("SelfCorrelated");
+            } else if (RbPatternBased.isSelected()) {
+                fichier.write ("PatternBased " + TfValue.getText());
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("You must make a choice before going far !");
+                alert.showAndWait();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
+        fichier.close();
     }
 }
