@@ -17,11 +17,49 @@ public class CtrlTrend {
     private TextField TxtOther;
     @FXML
     private Slider SliderVector;
-    @FXML
-    private Button BtnContinue;
 
-    public Button getBtnContinue(){
-        return BtnContinue;
+    public RadioButton getRbDirectSize() {
+        return RbDirectSize;
+    }
+
+    public RadioButton getRbSize() {
+        return RbSize;
+    }
+
+    public RadioButton getRbOther() {
+        return RbOther;
+    }
+
+    public RadioButton getRbSource() {
+        return RbSource;
+    }
+
+    public RadioButton getRbDestination() {
+        return RbDestination;
+    }
+
+    public RadioButton getRbRunningA() {
+        return RbRunningA;
+    }
+
+    public RadioButton getRbVectorOfM() {
+        return RbVectorOfM;
+    }
+
+    public RadioButton getRbDistinctOcc() {
+        return RbDistinctOcc;
+    }
+
+    public RadioButton getRbValueDis() {
+        return RbValueDis;
+    }
+
+    public RadioButton getRbCumulativeSum() {
+        return RbCumulativeSum;
+    }
+
+    public TextField getTxtOther() {
+        return TxtOther;
     }
 
     public void writeData() throws IOException {
@@ -40,16 +78,20 @@ public class CtrlTrend {
                 fichier.write ("Source");
             } else if (RbDestination.isSelected()){
                 fichier.write ("Destination");
-            } else if (RbRunningA.isSelected()){
-                fichier.write ("Running average");
+            }
+
+            fichier.write("\n");
+
+            if (RbRunningA.isSelected()){
+                fichier.write ("window stream average");
             } else if (RbVectorOfM.isSelected()){
-                fichier.write ("Vector of moments " + SliderVector.getValue());
+                fichier.write (SliderVector.getValue() + " statistical moments");
             } else if (RbDistinctOcc.isSelected()){
-                fichier.write ("Distinct occurrences");
+                fichier.write ("distribution of unique values");
             } else if (RbValueDis.isSelected()){
-                fichier.write ("Value distribution");
+                fichier.write ("distribution of window values");
             } else if (RbCumulativeSum.isSelected()){
-                fichier.write ("Cumulative sum");
+                fichier.write ("window values sum");
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -62,32 +104,21 @@ public class CtrlTrend {
      * Verify if a radio Button is selected
      */
     public boolean isSelected(){
-        boolean isSelected = false;
-        if (((RbDirectSize.isSelected() || RbSize.isSelected() || (RbOther.isSelected() && !TxtOther.getText().equals(""))
+        if ((RbDirectSize.isSelected() || RbSize.isSelected() || (RbOther.isSelected() && !TxtOther.getText().equals(""))
                 || RbSource.isSelected() || RbDestination.isSelected()) && (RbRunningA.isSelected() || RbVectorOfM.isSelected()
-                || RbDistinctOcc.isSelected() || RbValueDis.isSelected() || RbCumulativeSum.isSelected()))){
-            isSelected = true;
-        } else if (RbOther.isSelected() && TxtOther.getText().equals("")){
+                || RbDistinctOcc.isSelected() || RbValueDis.isSelected() || RbCumulativeSum.isSelected())){
+            return true;
+        }
+        return false;
+    }
+
+    public void Check(){
+        if (RbOther.isSelected() && TxtOther.getText().equals("")){
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setHeaderText(null);
             alert.setTitle("Warning");
-            alert.setContentText("You must type a value");
-            alert.showAndWait();
-        } else if (!(RbDirectSize.isSelected() || RbSize.isSelected() || (RbOther.isSelected() && !TxtOther.getText().equals(""))
-                || RbSource.isSelected() || RbDestination.isSelected())){
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setHeaderText(null);
-            alert.setTitle("Warning");
-            alert.setContentText("You must make a choice on the first part");
-            alert.showAndWait();
-        } else if (!(RbRunningA.isSelected() || RbVectorOfM.isSelected() || RbDistinctOcc.isSelected() || RbValueDis.isSelected()
-                || RbCumulativeSum.isSelected())){
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setHeaderText(null);
-            alert.setTitle("Warning");
-            alert.setContentText("You must make a choice on the second part");
+            alert.setContentText("You must type an integer !");
             alert.showAndWait();
         }
-        return isSelected;
     }
 }

@@ -1,8 +1,6 @@
 package controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 
 import java.io.File;
@@ -13,11 +11,21 @@ public class CtrlDistance {
 
     @FXML 
     private RadioButton RbManhattan, RbEuclidean, RbScalar, RbRatio;
-    @FXML
-    private Button BtnContinue;
 
-    public Button getBtnContinue(){
-        return BtnContinue;
+    public RadioButton getRbManhattan() {
+        return RbManhattan;
+    }
+
+    public RadioButton getRbEuclidean() {
+        return RbEuclidean;
+    }
+
+    public RadioButton getRbScalar() {
+        return RbScalar;
+    }
+
+    public RadioButton getRbRatio() {
+        return RbRatio;
     }
 
     public void writeData() throws IOException {
@@ -46,16 +54,6 @@ public class CtrlDistance {
      * Verify if a radio Button is selected
      */
     public boolean isSelected(){
-        boolean isSelected = false;
-        if (RbManhattan.isSelected() || RbEuclidean.isSelected() || RbScalar.isSelected() || RbRatio.isSelected()) {
-            isSelected = true;
-        } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setHeaderText(null);
-            alert.setTitle("Warning");
-            alert.setContentText("You must make a choice before going far or fill all fields!");
-            alert.showAndWait();
-        }
-        return isSelected;
+        return RbManhattan.isSelected() || RbEuclidean.isSelected() || RbScalar.isSelected() || RbRatio.isSelected();
     }
 }

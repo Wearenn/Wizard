@@ -13,7 +13,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CtrlTrend">
    <children>
       <Label layoutX="77.0" layoutY="26.0" text="Select the element of each event to use for computing the trend :" />
-      <Pane fx:id="PaneGroup" layoutX="77.0" layoutY="43.0" prefHeight="80.0" prefWidth="264.0">
+      <Pane fx:id="PaneGroup" layoutX="77.0" layoutY="43.0" prefHeight="86.0" prefWidth="264.0">
          <children>
             <RadioButton fx:id="RbDirectSize" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Direct value">
                <toggleGroup>
@@ -21,10 +21,11 @@
                </toggleGroup>
             </RadioButton>
             <RadioButton fx:id="RbSize" layoutX="14.0" layoutY="32.0" mnemonicParsing="false" text="Size" toggleGroup="$group" />
-            <RadioButton fx:id="RbOther" layoutX="14.0" layoutY="49.0" mnemonicParsing="false" text="Other" toggleGroup="$group" />
+            <RadioButton fx:id="RbOther" layoutX="14.0" layoutY="58.0" mnemonicParsing="false" text="Other" toggleGroup="$group" />
             <RadioButton fx:id="RbSource" layoutX="166.0" layoutY="14.0" mnemonicParsing="false" text="Source" toggleGroup="$group" />
             <RadioButton fx:id="RbDestination" layoutX="166.0" layoutY="32.0" mnemonicParsing="false" text="Destination" toggleGroup="$group" />
-            <TextField fx:id="TxtOther" layoutX="72.0" layoutY="45.0" prefHeight="25.0" prefWidth="66.0" />
+            <TextField fx:id="TxtOther" layoutX="73.0" layoutY="54.0" prefHeight="25.0" prefWidth="66.0" />
+            <Button fx:id="BtnRegister" layoutX="147.0" layoutY="54.0" mnemonicParsing="false" onMouseClicked="#Check" prefHeight="17.0" prefWidth="95.0" text="Register Value" />
          </children>
       </Pane>
       <Label layoutX="77.0" layoutY="139.0" text="Select the trend to compute over the stream" />
@@ -62,6 +63,5 @@
       <Label layoutX="113.0" layoutY="329.0" text="The distribution of values observed in the window" />
       <Label layoutX="113.0" layoutY="371.0" text="The sum of all values over the window" />
       <Slider fx:id="SliderVector" blockIncrement="1.0" layoutX="113.0" layoutY="241.0" majorTickUnit="1.0" max="6.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="2.0" />
-      <Button fx:id="BtnContinue" layoutX="479.0" layoutY="374.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="69.0" text="Continue" />
    </children>
 </AnchorPane>

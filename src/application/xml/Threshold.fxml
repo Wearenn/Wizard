@@ -17,7 +17,7 @@
       </RadioButton>
       <RadioButton fx:id="RbLarger" layoutX="98.0" layoutY="120.0" mnemonicParsing="false" text="Larger than" toggleGroup="$group" />
       <Label layoutX="81.0" layoutY="183.0" text="the following threshold:" />
-      <TextField fx:id="TfThreshold" layoutX="226.0" layoutY="179.0" prefHeight="25.0" prefWidth="54.0" promptText="0.5" text="0.5" />
-      <Button fx:id="BtnContinue" layoutX="469.0" layoutY="361.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="69.0" text="Continue" />
+      <TextField fx:id="TfThreshold" layoutX="226.0" layoutY="179.0" prefHeight="25.0" prefWidth="54.0" promptText="0.5" />
+      <Button layoutX="300.0" layoutY="179.0" mnemonicParsing="false" onMouseClicked="#Check" prefHeight="17.0" prefWidth="95.0" text="Register Value" />
    </children>
 </AnchorPane>

@@ -1,14 +1,8 @@
 package controller;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -29,15 +23,17 @@ public class CtrlPattern implements Initializable {
     private TextField TfValue;
     @FXML
     private Label LblSelf, LblPattern;
-    @FXML
-    private Button BtnContinue;
-
-    public Button getBtnContinue(){
-        return BtnContinue;
-    }
 
     public TextField getTfValue() {
         return TfValue;
+    }
+
+    public RadioButton getRbSelfCorrelated() {
+        return RbSelfCorrelated;
+    }
+
+    public RadioButton getRbPatternBased() {
+        return RbPatternBased;
     }
 
     @Override
@@ -78,27 +74,23 @@ public class CtrlPattern implements Initializable {
      * Verify if a radio Button is selected and verify if all conditions are respected
      */
     public boolean isSelected(){
-        boolean isSelected = false;
         if (RbSelfCorrelated.isSelected() || (RbPatternBased.isSelected() && isAnInt(getTfValue().getText()))){
-            isSelected = true;
-        } else if (RbPatternBased.isSelected() && !isAnInt(getTfValue().getText())) {
+            return true;
+        }
+        return false;
+    }
+
+    public void Check(){
+        if (!isAnInt(getTfValue().getText())){
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setHeaderText(null);
             alert.setTitle("Warning");
             alert.setContentText("You must type an integer !");
             alert.showAndWait();
-        } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setHeaderText(null);
-            alert.setTitle("Warning");
-            alert.setContentText("You must make a choice before going far or fill all fields!");
-            alert.showAndWait();
         }
-        return isSelected;
     }
 
     public boolean isAnInt(String string){
-        if (string.matches("[0-9]*") && !string.equals(""))  return true;
-        return false;
+        return string.matches("[0-9]*") && !string.equals("");
     }
 }

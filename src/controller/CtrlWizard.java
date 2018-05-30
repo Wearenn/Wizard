@@ -6,10 +6,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Toggle;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -62,6 +60,7 @@ public class CtrlWizard implements Initializable {
                 }
             }
         });
+
         BtnBack.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -69,14 +68,7 @@ public class CtrlWizard implements Initializable {
             }
         });
 
-        ctrlPattern.getBtnContinue().setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if (ctrlPattern.isSelected()){
-                    BtnNext.setDisable(false);
-                }
-            }
-        });
+        checkWindowPatternConditions();
     }
 
     /**
@@ -97,15 +89,7 @@ public class CtrlWizard implements Initializable {
             ctrlInputStream = loader.getController();
 
             BtnNext.setDisable(true);
-
-            ctrlInputStream.getBtnContinue().setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    if (ctrlInputStream.isSelected()) {
-                        BtnNext.setDisable(false);
-                    }
-                }
-            });
+            checkWindowInputStreamConditions();
 
             //GUI updates
             LblNumber.setText("2");
@@ -139,15 +123,7 @@ public class CtrlWizard implements Initializable {
             ctrlTrend = loader.getController();
 
             BtnNext.setDisable(true);
-
-            ctrlTrend.getBtnContinue().setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    if (ctrlTrend.isSelected()){
-                        BtnNext.setDisable(false);
-                    }
-                }
-            });
+            checkWindowTrendConditions();
 
             //GUI updates
             LblNumber.setText("4");
@@ -165,15 +141,7 @@ public class CtrlWizard implements Initializable {
             ctrlDistance = loader.getController();
 
             BtnNext.setDisable(true);
-
-            ctrlDistance.getBtnContinue().setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    if (ctrlDistance.isSelected()){
-                        BtnNext.setDisable(false);
-                    }
-                }
-            });
+            checkWindowDistanceConditions();
 
             //GUI updates
             LblNumber.setText("5");
@@ -191,15 +159,7 @@ public class CtrlWizard implements Initializable {
             ctrlThreshold = loader.getController();
 
             BtnNext.setDisable(true);
-
-            ctrlThreshold.getBtnContinue().setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    if (ctrlThreshold.isSelected()) {
-                        BtnNext.setDisable(false);
-                    }
-                }
-            });
+            checkWindowThresholdConditions();
 
             //GUI updates
             LblNumber.setText("6");
@@ -266,5 +226,319 @@ public class CtrlWizard implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Check if conditions to move next page are respected
+     */
+    private void checkWindowPatternConditions(){
+        ctrlPattern.getRbSelfCorrelated().setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (ctrlPattern.isSelected()){
+                    BtnNext.setDisable(false);
+                } else {
+                    BtnNext.setDisable(true);
+                }
+            }
+        });
+
+        ctrlPattern.getRbPatternBased().setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (ctrlPattern.isSelected()){
+                    BtnNext.setDisable(false);
+                } else {
+                    BtnNext.setDisable(true);
+                }
+            }
+        });
+
+        ctrlPattern.getTfValue().focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+                if (oldPropertyValue) {
+                    if (ctrlPattern.isSelected()){
+                        BtnNext.setDisable(false);
+                    } else {
+                        BtnNext.setDisable(true);
+                    }
+                }
+            }
+        });
+    }
+
+    private void checkWindowInputStreamConditions(){
+        ctrlInputStream.getRbPreRecorded().setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (ctrlInputStream.isSelected()){
+                    BtnNext.setDisable(false);
+                } else {
+                    BtnNext.setDisable(true);
+                }
+            }
+        });
+
+        ctrlInputStream.getRbStandardInput().setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (ctrlInputStream.isSelected()){
+                    BtnNext.setDisable(false);
+                } else {
+                    BtnNext.setDisable(true);
+                }
+            }
+        });
+
+        ctrlInputStream.getRbTCPConnection().setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (ctrlInputStream.isSelected()){
+                    BtnNext.setDisable(false);
+                } else {
+                    BtnNext.setDisable(true);
+                }
+            }
+        });
+
+        ctrlInputStream.getLblBrowserL().textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (ctrlInputStream.isSelected()){
+                    BtnNext.setDisable(false);
+                } else {
+                    BtnNext.setDisable(true);
+                }
+            }
+        });
+
+        ctrlInputStream.getLblBrowserI().textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (ctrlInputStream.isSelected()){
+                    BtnNext.setDisable(false);
+                } else {
+                    BtnNext.setDisable(true);
+                }
+            }
+        });
+
+        ctrlInputStream.getTfPort().focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+                if (oldPropertyValue) {
+                    if (ctrlInputStream.isSelected()){
+                        BtnNext.setDisable(false);
+                    } else {
+                        BtnNext.setDisable(true);
+                    }
+                }
+            }
+        });
+    }
+
+    private void checkWindowTrendConditions(){
+        ctrlTrend.getRbCumulativeSum().setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (ctrlTrend.isSelected()){
+                    BtnNext.setDisable(false);
+                } else {
+                    BtnNext.setDisable(true);
+                }
+            }
+        });
+
+        ctrlTrend.getRbDestination().setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (ctrlTrend.isSelected()){
+                    BtnNext.setDisable(false);
+                } else {
+                    BtnNext.setDisable(true);
+                }
+            }
+        });
+
+        ctrlTrend.getRbDirectSize().setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (ctrlTrend.isSelected()){
+                    BtnNext.setDisable(false);
+                } else {
+                    BtnNext.setDisable(true);
+                }
+            }
+        });
+
+        ctrlTrend.getRbDistinctOcc().setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (ctrlTrend.isSelected()){
+                    BtnNext.setDisable(false);
+                } else {
+                    BtnNext.setDisable(true);
+                }
+            }
+        });
+
+        ctrlTrend.getRbOther().setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (ctrlTrend.isSelected()){
+                    BtnNext.setDisable(false);
+                } else {
+                    BtnNext.setDisable(true);
+                }
+            }
+        });
+
+        ctrlTrend.getRbRunningA().setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (ctrlTrend.isSelected()){
+                    BtnNext.setDisable(false);
+                } else {
+                    BtnNext.setDisable(true);
+                }
+            }
+        });
+
+        ctrlTrend.getRbSize().setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (ctrlTrend.isSelected()){
+                    BtnNext.setDisable(false);
+                } else {
+                    BtnNext.setDisable(true);
+                }
+            }
+        });
+
+        ctrlTrend.getRbSource().setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (ctrlTrend.isSelected()){
+                    BtnNext.setDisable(false);
+                } else {
+                    BtnNext.setDisable(true);
+                }
+            }
+        });
+
+        ctrlTrend.getRbValueDis().setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (ctrlTrend.isSelected()){
+                    BtnNext.setDisable(false);
+                } else {
+                    BtnNext.setDisable(true);
+                }
+            }
+        });
+
+        ctrlTrend.getRbVectorOfM().setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (ctrlTrend.isSelected()){
+                    BtnNext.setDisable(false);
+                } else {
+                    BtnNext.setDisable(true);
+                }
+            }
+        });
+
+        ctrlTrend.getTxtOther().focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (ctrlTrend.isSelected()){
+                    BtnNext.setDisable(false);
+                } else {
+                    BtnNext.setDisable(true);
+                }
+            }
+        });
+    }
+
+    private void checkWindowDistanceConditions(){
+        ctrlDistance.getRbManhattan().setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (ctrlDistance.isSelected()){
+                    BtnNext.setDisable(false);
+                } else {
+                    BtnNext.setDisable(true);
+                }
+            }
+        });
+
+        ctrlDistance.getRbEuclidean().setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (ctrlDistance.isSelected()){
+                    BtnNext.setDisable(false);
+                } else {
+                    BtnNext.setDisable(true);
+                }
+            }
+        });
+
+        ctrlDistance.getRbScalar().setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (ctrlDistance.isSelected()){
+                    BtnNext.setDisable(false);
+                } else {
+                    BtnNext.setDisable(true);
+                }
+            }
+        });
+
+        ctrlDistance.getRbRatio().setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (ctrlDistance.isSelected()){
+                    BtnNext.setDisable(false);
+                } else {
+                    BtnNext.setDisable(true);
+                }
+            }
+        });
+    }
+
+    private void checkWindowThresholdConditions(){
+        ctrlThreshold.getRbLarger().setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (ctrlThreshold.isSelected()){
+                    BtnNext.setDisable(false);
+                } else {
+                    BtnNext.setDisable(true);
+                }
+            }
+        });
+
+        ctrlThreshold.getRbSmaller().setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (ctrlThreshold.isSelected()){
+                    BtnNext.setDisable(false);
+                } else {
+                    BtnNext.setDisable(true);
+                }
+            }
+        });
+
+        ctrlThreshold.getTfThreshold().focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (ctrlThreshold.isSelected()){
+                    BtnNext.setDisable(false);
+                } else {
+                    BtnNext.setDisable(true);
+                }
+            }
+        });
     }
 }

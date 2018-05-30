@@ -43,13 +43,13 @@ public class CtrlResume implements Initializable {
         }
 
         LblResume.setText("Over a stream coming from the " + StringData.get(0) + ",\n" +
-                           "extract a fiel called " + StringData.get(1) + ".\n" +
-                           "and compare the " + "\n" +
-                           "between the last " + StringData.get(2) + "\n" +
-                           "and the " + StringData.get(3) + " that precedes it.");
+                StringData.get(1) + ".\n" +
+                "and compare the " + StringData.get(4) + "\n" +
+                "between the last " + StringData.get(2) + "\n" +
+                "and the " + StringData.get(3) + " that precedes it.");
         LblAlert.setText("Raise an alert whenever\n" +
-                         "the " + StringData.get(4)+ " between them\n" +
-                         StringData.get(5) + ".");
+                "the " + StringData.get(5) + " between them\n" +
+                StringData.get(6) + ".");
 
         //enregistrement des données dans un fichier .java
         BtnSave.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -92,7 +92,14 @@ public class CtrlResume implements Initializable {
             if (sCurrentLine.contains("input")) {
                 StringData.add(sCurrentLine);
                 System.out.println(sCurrentLine);
-            } else if (sCurrentLine.contains(".jpg")){
+            } else if (sCurrentLine.contains("from port") || sCurrentLine.contains("extract a fiel called")){
+                StringData.add(sCurrentLine);
+                System.out.println(sCurrentLine);
+            } else if (sCurrentLine.contains("window stream average") || sCurrentLine.contains("statistical moments") || sCurrentLine.contains("distribution of unique values") ||
+                    sCurrentLine.contains("distribution of window values") || sCurrentLine.contains("window values sum")) {
+                StringData.add(sCurrentLine);
+                System.out.println(sCurrentLine);
+            } else if (sCurrentLine.contains(".jpg") || sCurrentLine.matches("[0-9]*")){
                 StringData.add(sCurrentLine);
                 System.out.println(sCurrentLine);
             } else if (sCurrentLine.contains("hr")) {

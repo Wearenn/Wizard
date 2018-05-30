@@ -19,7 +19,7 @@
             <ToggleGroup fx:id="group" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="RbStandardInput" layoutX="91.0" layoutY="183.0" mnemonicParsing="false" selected="true" text="Standard input" toggleGroup="$group">
+      <RadioButton fx:id="RbStandardInput" layoutX="91.0" layoutY="183.0" mnemonicParsing="false" text="Standard input" toggleGroup="$group">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -32,13 +32,13 @@
             <Font name="System Italic" size="12.0" />
          </font>
       </Label>
-      <RadioButton fx:id="RbTCPConnection" layoutX="90.0" layoutY="283.0" mnemonicParsing="false" selected="true" text="TCP connection" toggleGroup="$group">
+      <RadioButton fx:id="RbTCPConnection" layoutX="90.0" layoutY="283.0" mnemonicParsing="false" text="TCP connection" toggleGroup="$group">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </RadioButton>
       <Label layoutX="120.0" layoutY="309.0" text="Captures packets from a local TCP port" />
-      <TextField fx:id="TfPort" layoutX="122.0" layoutY="334.0" prefHeight="25.0" prefWidth="57.0" text="12" />
+      <TextField fx:id="TfPort" layoutX="122.0" layoutY="334.0" prefHeight="25.0" prefWidth="57.0" />
       <Label layoutX="188.0" layoutY="338.0" text="Port" />
       <Button fx:id="BtnBrowserI" layoutX="123.0" layoutY="234.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="80.0" text="Browse..." />
       <Label fx:id="LblBrowserI" layoutX="221.0" layoutY="242.0" prefHeight="17.0" prefWidth="117.0" text="No file selected">
@@ -46,6 +46,6 @@
             <Font name="System Italic" size="12.0" />
          </font>
       </Label>
-      <Button fx:id="BtnContinue" layoutX="481.0" layoutY="361.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="69.0" text="Continue" />
+      <Button layoutX="221.0" layoutY="334.0" mnemonicParsing="false" onMouseClicked="#Check" prefHeight="25.0" prefWidth="95.0" text="Register Value" />
    </children>
 </AnchorPane>
