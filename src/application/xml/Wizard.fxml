@@ -29,7 +29,7 @@
                                     <Label fx:id="LblThreshold" layoutX="33.0" layoutY="189.0" prefHeight="17.0" prefWidth="72.0" text="6. Threshold" />
                                     <Label fx:id="LblDistance" layoutX="33.0" layoutY="152.0" prefHeight="17.0" prefWidth="66.0" text="5. Distance" />
                                     <Label fx:id="LblTrend" layoutX="34.0" layoutY="117.0" prefHeight="17.0" prefWidth="52.0" text="4. Trend" />
-                                    <Label fx:id="LblWindows" layoutX="33.0" layoutY="84.0" prefHeight="17.0" prefWidth="72.0" text="3. Windows" />
+                                    <Label fx:id="LblWindows" layoutX="33.0" layoutY="84.0" prefHeight="17.0" prefWidth="72.0" text="3. Window" />
                                     <Label fx:id="LblInput" layoutX="33.0" layoutY="48.0" prefHeight="17.0" prefWidth="88.0" text="2. Input stream" />
                                  </children>
                               </AnchorPane>

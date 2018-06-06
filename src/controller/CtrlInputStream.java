@@ -8,7 +8,6 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -25,9 +24,9 @@ public class CtrlInputStream implements Initializable {
     @FXML
     private RadioButton RbPreRecorded, RbTCPConnection, RbStandardInput;
     @FXML
-    private Button BtnBrowserL, BtnBrowserI;
+    private Button BtnBrowserL;
     @FXML
-    private Label LblBrowserL, LblBrowserI;
+    private Label LblBrowserL;
     @FXML
     private TextField TfPort;
 
@@ -51,29 +50,11 @@ public class CtrlInputStream implements Initializable {
         return LblBrowserL;
     }
 
-    public Label getLblBrowserI() {
-        return LblBrowserI;
-    }
-
     //private Desktop desktop = Desktop.getDesktop();
     private String Filename = null;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        BtnBrowserI.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                final FileChooser fileChooser = new FileChooser();
-                fileChooser.setTitle("Select a log file");
-                FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
-                //fileChooser.getExtensionFilters().add(filter);
-                Node node = (Node) event.getSource();
-                File file = fileChooser.showOpenDialog(node.getScene().getWindow());
-                if (file != null) {
-                    openFileI(file);
-                }
-            }
-        });
         BtnBrowserL.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -107,9 +88,9 @@ public class CtrlInputStream implements Initializable {
             if (RbPreRecorded.isSelected() && !LblBrowserL.getText().equals("No file selected")){
                 fichier.write ("pre-recorded input");
                 fichier.write("\nextract a fiel called " + Filename);
-            } else if (RbStandardInput.isSelected() && !LblBrowserI.getText().equals("No file selected")){
+            } else if (RbStandardInput.isSelected()){
                 fichier.write ("standard input");
-                fichier.write("\nextract a fiel called " + Filename);
+                fichier.write("\nextract new data");
             } else if (RbTCPConnection.isSelected()){
                 fichier.write ("TCP Connection input");
                 fichier.write("\nextract data from port n°" + TfPort.getText());
@@ -127,11 +108,6 @@ public class CtrlInputStream implements Initializable {
         File file = chooser.showOpenDialog(new Stage());
     }*/
 
-    private void openFileI(File file) {
-        LblBrowserI.setText(file.getName());
-        Filename = file.getName();
-    }
-
     private void openFileL(File file) {
         LblBrowserL.setText(file.getName());
         Filename = file.getName();
@@ -142,7 +118,7 @@ public class CtrlInputStream implements Initializable {
      */
     public boolean isSelected(){
         if ((RbPreRecorded.isSelected() && !LblBrowserL.getText().equals("No file selected"))
-                || (RbStandardInput.isSelected() && !LblBrowserI.getText().equals("No file selected"))
+                || RbStandardInput.isSelected()
                 || (RbTCPConnection.isSelected() && isAnInt(getTfPort().getText()))){
             return true;
         }

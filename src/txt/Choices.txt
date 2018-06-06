@@ -1,9 +1,10 @@
 SelfCorrelated
+standard input
+extract new data
 TCP Connection input
 extract data from port n°22
-1hr 0min 0sec
-2hr 0min 0sec
-Source
-distribution of unique values
+group of 3 values
+Direct Value
+average of the stream over the entire window
 Scalar difference
 are below the value of 0.5

@@ -61,7 +61,7 @@ public class CtrlPattern implements Initializable {
             if (RbSelfCorrelated.isSelected()) {
                 fichier.write ("SelfCorrelated");
             } else if (RbPatternBased.isSelected()) {
-                fichier.write ("PatternBased " + TfValue.getText());
+                fichier.write ("Static " + TfValue.getText());
             }
         } catch (IOException e) {
             e.printStackTrace();

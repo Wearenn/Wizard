@@ -3,6 +3,7 @@ package controller;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -14,6 +15,8 @@ public class CtrlWindows implements Initializable {
 
     @FXML
     private ComboBox<Integer> HoursM, HoursN, MinutesM, MinutesN, SecondsM, SecondsN;
+    @FXML
+    private TextField TfWindowValue;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -39,8 +42,11 @@ public class CtrlWindows implements Initializable {
         FileWriter fichier = new FileWriter(new File("./src/txt/Choices.txt"), true);
 
         fichier.write("\n");
-        fichier.write(HoursM.getValue() + "hr " + MinutesM.getValue() + "min " + SecondsM.getValue() + "sec" + "\n" + HoursN.getValue() + "hr " + MinutesN.getValue() + "min " + SecondsN.getValue() + "sec");
 
+        /*code fonctionnel mais non implémenté
+        fichier.write(HoursM.getValue() + "hr " + MinutesM.getValue() + "min " + SecondsM.getValue() + "sec" + "\n" + HoursN.getValue() + "hr " + MinutesN.getValue() + "min " + SecondsN.getValue() + "sec");
+        */
+        fichier.write("group of " + TfWindowValue.getText() + " values");
         fichier.close();
     }
 }

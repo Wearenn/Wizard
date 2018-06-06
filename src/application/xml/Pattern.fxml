@@ -19,7 +19,7 @@
             <ToggleGroup fx:id="rb_choix" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="RbPatternBased" layoutX="72.0" layoutY="200.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="197.0" text="Pattern-based trend distance" toggleGroup="$rb_choix">
+      <RadioButton fx:id="RbPatternBased" layoutX="72.0" layoutY="200.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="197.0" text="Static trend distance" toggleGroup="$rb_choix">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

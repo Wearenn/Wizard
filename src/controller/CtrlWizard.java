@@ -64,7 +64,11 @@ public class CtrlWizard implements Initializable {
         BtnBack.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                switchBackPage();
+                try {
+                    switchBackPage();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -177,18 +181,27 @@ public class CtrlWizard implements Initializable {
             ctrlResume = loader.getController();
 
             //GUI updates
-            BtnNext.setText("Start");
+            BtnNext.setVisible(false);
+            BtnBack.setVisible(false);
+            LblNumber.setVisible(false);
         }
     }
 
     /**
      * Switch for Back Button
      */
-    private void switchBackPage(){
-        String name = null;
+    private void switchBackPage() throws IOException {
+        FXMLLoader loader;
+        String name;
 
         if (LblNumber.getText().equals("2")) {
             name = "../application/xml/Pattern.fxml";
+            loader = new FXMLLoader(getClass().getResource(name));
+            ApDetails.getChildren().setAll((AnchorPane)loader.load());
+            ctrlPattern = loader.getController();
+
+            checkWindowPatternConditions();
+
             LblNumber.setText("1");
             BtnNext.setDisable(true);
             BtnBack.setDisable(true);
@@ -196,35 +209,51 @@ public class CtrlWizard implements Initializable {
             LblPattern.setBorder(new Border(new BorderStroke(Color.DARKGRAY, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
         } else if (LblNumber.getText().equals("3")){
             name = "../application/xml/Input_stream.fxml";
+            loader = new FXMLLoader(getClass().getResource(name));
+            ApDetails.getChildren().setAll((AnchorPane)loader.load());
+            ctrlInputStream = loader.getController();
+
+            checkWindowInputStreamConditions();
+
             LblNumber.setText("2");
             BtnNext.setDisable(true);
             LblWindows.setBorder(null);
             LblInput.setBorder(new Border(new BorderStroke(Color.DARKGRAY, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
         } else if (LblNumber.getText().equals("4")){
             name = "../application/xml/Windows.fxml";
+            loader = new FXMLLoader(getClass().getResource(name));
+            ApDetails.getChildren().setAll((AnchorPane)loader.load());
+            ctrlWindows = loader.getController();
+
             LblNumber.setText("3");
             BtnNext.setDisable(true);
             LblTrend.setBorder(null);
             LblWindows.setBorder(new Border(new BorderStroke(Color.DARKGRAY, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
         } else if (LblNumber.getText().equals("5")){
             name = "../application/xml/Trend.fxml";
+            loader = new FXMLLoader(getClass().getResource(name));
+            ApDetails.getChildren().setAll((AnchorPane)loader.load());
+            ctrlTrend = loader.getController();
+
+            checkWindowTrendConditions();
+
             LblNumber.setText("4");
             BtnNext.setDisable(true);
             LblDistance.setBorder(null);
             LblTrend.setBorder(new Border(new BorderStroke(Color.DARKGRAY, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
         } else if (LblNumber.getText().equals("6")){
             name = "../application/xml/Distance.fxml";
+            loader = new FXMLLoader(getClass().getResource(name));
+            ApDetails.getChildren().setAll((AnchorPane)loader.load());
+            ctrlDistance = loader.getController();
+
+            checkWindowDistanceConditions();
+
             LblNumber.setText("5");
             BtnNext.setDisable(true);
             BtnNext.setText("Next >");
             LblThreshold.setBorder(null);
             LblDistance.setBorder(new Border(new BorderStroke(Color.DARKGRAY, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
-        }
-
-        try {
-            ApDetails.getChildren().setAll((AnchorPane) FXMLLoader.load(getClass().getResource(name)));
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -303,17 +332,6 @@ public class CtrlWizard implements Initializable {
         });
 
         ctrlInputStream.getLblBrowserL().textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (ctrlInputStream.isSelected()){
-                    BtnNext.setDisable(false);
-                } else {
-                    BtnNext.setDisable(true);
-                }
-            }
-        });
-
-        ctrlInputStream.getLblBrowserI().textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 if (ctrlInputStream.isSelected()){

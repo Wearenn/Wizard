@@ -83,15 +83,15 @@ public class CtrlTrend {
             fichier.write("\n");
 
             if (RbRunningA.isSelected()){
-                fichier.write ("window stream average");
+                fichier.write ("average of the stream over the entire window");
             } else if (RbVectorOfM.isSelected()){
-                fichier.write (SliderVector.getValue() + " statistical moments");
+                fichier.write (SliderVector.getValue() + " first statistical moments over the entire window");
             } else if (RbDistinctOcc.isSelected()){
-                fichier.write ("distribution of unique values");
+                fichier.write ("number of distinct values observed in the window");
             } else if (RbValueDis.isSelected()){
-                fichier.write ("distribution of window values");
+                fichier.write ("distribution of values observed in the window");
             } else if (RbCumulativeSum.isSelected()){
-                fichier.write ("window values sum");
+                fichier.write ("sum of all values over the window");
             }
         } catch (IOException e) {
             e.printStackTrace();
