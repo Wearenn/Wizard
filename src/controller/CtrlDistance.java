@@ -28,6 +28,11 @@ public class CtrlDistance {
         return RbRatio;
     }
 
+    /**
+     * We save in file "Choices.txt" the id of the user choice
+     *
+     * @throws IOException
+     */
     public void writeData() throws IOException {
 
         //write new informations

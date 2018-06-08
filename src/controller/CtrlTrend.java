@@ -112,13 +112,27 @@ public class CtrlTrend {
         return false;
     }
 
+    /**
+     * Check if the value typed by the user is an int
+     * if false, display a warning
+     */
     public void Check(){
-        if (RbOther.isSelected() && TxtOther.getText().equals("")){
+        if (!isAnInt(getTxtOther().getText())){
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setHeaderText(null);
             alert.setTitle("Warning");
             alert.setContentText("You must type an integer !");
             alert.showAndWait();
         }
+    }
+
+    /**
+     * Check if the value is an int
+     *
+     * @param string
+     * @return
+     */
+    private boolean isAnInt(String string){
+        return string.matches("[0-9]*") && !string.equals("");
     }
 }

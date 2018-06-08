@@ -80,6 +80,10 @@ public class CtrlPattern implements Initializable {
         return false;
     }
 
+    /**
+     * Check if the value typed by the user is an int
+     * if false, display a warning
+     */
     public void Check(){
         if (!isAnInt(getTfValue().getText())){
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -90,7 +94,13 @@ public class CtrlPattern implements Initializable {
         }
     }
 
-    public boolean isAnInt(String string){
+    /**
+     * Check if the value is an int
+     *
+     * @param string
+     * @return
+     */
+    private boolean isAnInt(String string){
         return string.matches("[0-9]*") && !string.equals("");
     }
 }

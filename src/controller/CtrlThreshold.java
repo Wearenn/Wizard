@@ -28,6 +28,11 @@ public class CtrlThreshold {
         return TfThreshold;
     }
 
+    /**
+     * We save in file "Choices.txt" the id of the user choice
+     *
+     * @throws IOException
+     */
     public void writeData() throws IOException {
         //write new informations
         FileWriter fichier = new FileWriter(new File("./src/txt/Choices.txt"),true);
@@ -56,6 +61,10 @@ public class CtrlThreshold {
         return false;
     }
 
+    /**
+     * Check if the value typed by the user is a float
+     * if false, display a warning
+     */
     public void Check(){
         if (!isAFloat(getTfThreshold().getText())){
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -66,6 +75,12 @@ public class CtrlThreshold {
         }
     }
 
+    /**
+     * Check if the value is a float
+     *
+     * @param string
+     * @return
+     */
     public boolean isAFloat(String string){
         return string.matches("^([+-]?\\d*\\.?\\d*)$") && !string.equals("");
     }

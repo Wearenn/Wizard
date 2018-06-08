@@ -1,14 +1,10 @@
 package controller;
 
 import BeepBeep.*;
-import ca.uqac.lif.cep.Connector;
-import ca.uqac.lif.cep.GroupProcessor;
 import ca.uqac.lif.cep.Processor;
 import ca.uqac.lif.cep.functions.*;
-import ca.uqac.lif.cep.tmf.Fork;
-import ca.uqac.lif.cep.tmf.Trim;
-import ca.uqac.lif.cep.tmf.Window;
 import ca.uqac.lif.cep.util.Numbers;
+import com.sun.istack.internal.NotNull;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -23,8 +19,6 @@ import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
-import static ca.uqac.lif.cep.Connector.*;
 
 /**
  * Controller for Resume Activity
@@ -48,7 +42,7 @@ public class CtrlResume implements Initializable {
     private Number d = null;
     private BinaryFunction<Number,Number,Boolean> comp = null;
 
-    //variables pour l'affichage
+    //variables to print in Network.txt file
     private String BetaPrint;
     private String DeltaPrint;
     private String compPrint;
@@ -70,17 +64,6 @@ public class CtrlResume implements Initializable {
             e.printStackTrace();
         }
 
-        LblResume.setText("Over a stream coming from the " + underline(StringData.get(0)) + ",\n" +
-                underline(StringData.get(1)) + "\n" +
-                "and compare the " + underline(StringData.get(3)) + "\n" +
-                //"between the last " + underline(StringData.get(2)) + "\n" +
-                //"and the " + underline(StringData.get(3)) + " that precedes it.");
-                "with the " + underline(StringData.get(2)) + " that precedes it.");
-        LblAlert.setText("Raise an alert whenever\n" +
-                "the " + underline(StringData.get(4)) + " between them\n" +
-                underline(StringData.get(5)) + ".");
-
-        //enregistrement des données dans un fichier .java
         BtnSave.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -98,6 +81,17 @@ public class CtrlResume implements Initializable {
                 }
             }
         });
+
+        //Write a summary of the user choices
+        LblResume.setText("Over a stream coming from the " + underline(StringData.get(0)) + ",\n" +
+                underline(StringData.get(1)) + "\n" +
+                "and compare the " + underline(StringData.get(3)) + "\n" +
+                //"between the last " + underline(StringData.get(2)) + "\n" +
+                //"and the " + underline(StringData.get(3)) + " that precedes it.");
+                "with the " + underline(StringData.get(2)) + " that precedes it.");
+        LblAlert.setText("Raise an alert whenever\n" +
+                "the " + underline(StringData.get(4)) + " between them\n" +
+                underline(StringData.get(5)) + ".");
     }
 
     /**
@@ -119,7 +113,7 @@ public class CtrlResume implements Initializable {
                 Pattern = Integer.parseInt(string[1]);
                 System.out.println("RESULT : Pattern = " + Pattern);
             } else if (s.equals("SelfCorrelated")){
-                //m = n donc pas besoin de la recuperer ici
+                //m = n so we don't have to recover the value of m here
             }
 
             if (s.contains("group of ")){
@@ -238,7 +232,7 @@ public class CtrlResume implements Initializable {
     }
 
     /**
-     * fonction qui recupère les données du fichier pour les mettres dans un tableau trié par fenetre
+     * function to recover Choices.txt data in a table StringData
      */
     private void getDataBack() throws IOException {
         StringData = new ArrayList<String>();
@@ -278,7 +272,7 @@ public class CtrlResume implements Initializable {
     }
 
     /**
-     * Save the program in a Text File
+     * Save the program in the Text File "Network.txt"
      */
     private void write(){
         try {
@@ -342,35 +336,17 @@ public class CtrlResume implements Initializable {
         }
     }
 
-    private StringBuilder underline(String args){
+    /**
+     * Function to underline a text
+     *
+     * @param args
+     * @return
+     */
+    private StringBuilder underline(@NotNull String args){
         StringBuilder underlined = new StringBuilder();
         for (char c : args.toCharArray()) {
             underlined.append(c).append('\u0332');
         }
         return underlined;
-    }
-
-    public static void main(String[] args) {
-        GroupProcessor p = new GroupProcessor(1,1);
-        {
-            Fork fork = new Fork(2);
-            p.associateInput(INPUT, fork, INPUT);
-            Trim trim = new Trim(3);
-            Connector.connect(fork, TOP, trim, INPUT);
-            Window win1 = new Window(new AverageFork().duplicate(), 3);
-            Connector.connect(trim, win1);
-            Window win2 = new Window(new AverageFork().duplicate(), 3);
-            Connector.connect(fork, BOTTOM, win2, INPUT);
-            ApplyFunction distance = new ApplyFunction(Numbers.subtraction);
-            Connector.connect(win1, OUTPUT, distance, TOP);
-            Connector.connect(win2, OUTPUT, distance, BOTTOM);
-            ApplyFunction too_far = new ApplyFunction(new FunctionTree(Numbers.isLessThan,
-                    new StreamVariable(0),
-                    new Constant(0.5)
-            ));
-            Connector.connect(distance, too_far);
-            p.associateOutput(OUTPUT, too_far, OUTPUT);
-            p.addProcessors(fork, trim, win1, win2, distance, too_far);
-        }
     }
 }

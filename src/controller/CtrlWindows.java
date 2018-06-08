@@ -37,6 +37,11 @@ public class CtrlWindows implements Initializable {
         SecondsN.setValue(0);
     }
 
+    /**
+     * We save in file "Choices.txt" the id of the user choice
+     *
+     * @throws IOException
+     */
     public void writeData() throws IOException {
         //write new informations
         FileWriter fichier = new FileWriter(new File("./src/txt/Choices.txt"), true);

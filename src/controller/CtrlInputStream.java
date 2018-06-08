@@ -65,7 +65,7 @@ public class CtrlInputStream implements Initializable {
                 Node node = (Node) event.getSource();
                 File file = fileChooser.showOpenDialog(node.getScene().getWindow());
                 if (file != null) {
-                    openFileL(file);
+                    openFile(file);
                 }
                 //fileChooser();
             }
@@ -108,7 +108,7 @@ public class CtrlInputStream implements Initializable {
         File file = chooser.showOpenDialog(new Stage());
     }*/
 
-    private void openFileL(File file) {
+    private void openFile(File file) {
         LblBrowserL.setText(file.getName());
         Filename = file.getName();
     }
@@ -125,6 +125,10 @@ public class CtrlInputStream implements Initializable {
         return false;
     }
 
+    /**
+     * Check if the value typed by the user is an int
+     * if false, display a warning
+     */
     public void Check(){
         if (!isAnInt(getTfPort().getText())){
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -135,6 +139,12 @@ public class CtrlInputStream implements Initializable {
         }
     }
 
+    /**
+     * Check if the value is an int
+     *
+     * @param string
+     * @return
+     */
     public boolean isAnInt(String string){
         return string.matches("[0-9]*") && !string.equals("");
     }

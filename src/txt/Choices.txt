@@ -1,10 +1,11 @@
 SelfCorrelated
 standard input
 extract new data
-TCP Connection input
-extract data from port n°22
 group of 3 values
-Direct Value
+Other 523
 average of the stream over the entire window
+Size
+average of the stream over the entire window
+Euclidean distance
 Scalar difference
-are below the value of 0.5
+are below the value of 1

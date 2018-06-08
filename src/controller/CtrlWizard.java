@@ -39,6 +39,7 @@ public class CtrlWizard implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        //loading and implementing of the first page Pattern.fxml
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../application/xml/Pattern.fxml"));
             ApDetails.getChildren().setAll((AnchorPane)loader.load());
@@ -46,10 +47,7 @@ public class CtrlWizard implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        LblNumber.setText("1");
-        BtnBack.setDisable(true);
-        BtnNext.setDisable(true);
-        LblPattern.setBorder(new Border(new BorderStroke(Color.DARKGRAY, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
+
         BtnNext.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -61,7 +59,7 @@ public class CtrlWizard implements Initializable {
             }
         });
 
-        BtnBack.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        /*BtnBack.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 try {
@@ -70,9 +68,14 @@ public class CtrlWizard implements Initializable {
                     e.printStackTrace();
                 }
             }
-        });
+        });*/
 
         checkWindowPatternConditions();
+
+        LblNumber.setText("1");
+        BtnBack.setVisible(false);
+        BtnNext.setDisable(true);
+        LblPattern.setBorder(new Border(new BorderStroke(Color.DARKGRAY, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
     }
 
     /**
@@ -190,11 +193,13 @@ public class CtrlWizard implements Initializable {
     /**
      * Switch for Back Button
      */
-    private void switchBackPage() throws IOException {
+    //Problem when replacing the latest data (how to suppress the last 2 lines in the text file ?)
+    /*private void switchBackPage() throws IOException {
         FXMLLoader loader;
         String name;
 
         if (LblNumber.getText().equals("2")) {
+            //load the old xml and the old controller
             name = "../application/xml/Pattern.fxml";
             loader = new FXMLLoader(getClass().getResource(name));
             ApDetails.getChildren().setAll((AnchorPane)loader.load());
@@ -202,12 +207,14 @@ public class CtrlWizard implements Initializable {
 
             checkWindowPatternConditions();
 
+            //GUI updates
             LblNumber.setText("1");
             BtnNext.setDisable(true);
             BtnBack.setDisable(true);
             LblInput.setBorder(null);
             LblPattern.setBorder(new Border(new BorderStroke(Color.DARKGRAY, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
         } else if (LblNumber.getText().equals("3")){
+            //load the old xml and the old controller
             name = "../application/xml/Input_stream.fxml";
             loader = new FXMLLoader(getClass().getResource(name));
             ApDetails.getChildren().setAll((AnchorPane)loader.load());
@@ -215,21 +222,25 @@ public class CtrlWizard implements Initializable {
 
             checkWindowInputStreamConditions();
 
+            //GUI updates
             LblNumber.setText("2");
             BtnNext.setDisable(true);
             LblWindows.setBorder(null);
             LblInput.setBorder(new Border(new BorderStroke(Color.DARKGRAY, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
         } else if (LblNumber.getText().equals("4")){
+            //load the old xml and the old controller
             name = "../application/xml/Windows.fxml";
             loader = new FXMLLoader(getClass().getResource(name));
             ApDetails.getChildren().setAll((AnchorPane)loader.load());
             ctrlWindows = loader.getController();
 
+            //GUI updates
             LblNumber.setText("3");
             BtnNext.setDisable(true);
             LblTrend.setBorder(null);
             LblWindows.setBorder(new Border(new BorderStroke(Color.DARKGRAY, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
         } else if (LblNumber.getText().equals("5")){
+            //load the old xml and the old controller
             name = "../application/xml/Trend.fxml";
             loader = new FXMLLoader(getClass().getResource(name));
             ApDetails.getChildren().setAll((AnchorPane)loader.load());
@@ -237,11 +248,13 @@ public class CtrlWizard implements Initializable {
 
             checkWindowTrendConditions();
 
+            //GUI updates
             LblNumber.setText("4");
             BtnNext.setDisable(true);
             LblDistance.setBorder(null);
             LblTrend.setBorder(new Border(new BorderStroke(Color.DARKGRAY, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
         } else if (LblNumber.getText().equals("6")){
+            //load the old xml and the old controller
             name = "../application/xml/Distance.fxml";
             loader = new FXMLLoader(getClass().getResource(name));
             ApDetails.getChildren().setAll((AnchorPane)loader.load());
@@ -249,16 +262,17 @@ public class CtrlWizard implements Initializable {
 
             checkWindowDistanceConditions();
 
+            //GUI updates
             LblNumber.setText("5");
             BtnNext.setDisable(true);
             BtnNext.setText("Next >");
             LblThreshold.setBorder(null);
             LblDistance.setBorder(new Border(new BorderStroke(Color.DARKGRAY, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
         }
-    }
+    }*/
 
     /**
-     * Check if conditions to move next page are respected
+     * Check if conditions to move next window are respected
      */
     private void checkWindowPatternConditions(){
         ctrlPattern.getRbSelfCorrelated().setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -297,6 +311,9 @@ public class CtrlWizard implements Initializable {
         });
     }
 
+    /**
+     * Check if conditions to move next window are respected
+     */
     private void checkWindowInputStreamConditions(){
         ctrlInputStream.getRbPreRecorded().setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -356,6 +373,9 @@ public class CtrlWizard implements Initializable {
         });
     }
 
+    /**
+     * Check if conditions to move next window are respected
+     */
     private void checkWindowTrendConditions(){
         ctrlTrend.getRbCumulativeSum().setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -479,6 +499,9 @@ public class CtrlWizard implements Initializable {
         });
     }
 
+    /**
+     * Check if conditions to move next window are respected
+     */
     private void checkWindowDistanceConditions(){
         ctrlDistance.getRbManhattan().setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -525,6 +548,9 @@ public class CtrlWizard implements Initializable {
         });
     }
 
+    /**
+     * Check if conditions to move next window are respected
+     */
     private void checkWindowThresholdConditions(){
         ctrlThreshold.getRbLarger().setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
