@@ -16,7 +16,7 @@ public class CtrlWindows implements Initializable {
     @FXML
     private ComboBox<Integer> HoursM, HoursN, MinutesM, MinutesN, SecondsM, SecondsN;
     @FXML
-    private TextField TfWindowValue;
+    private TextField TfWindowMValue, TfWindowNValue;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -51,7 +51,9 @@ public class CtrlWindows implements Initializable {
         /*code fonctionnel mais non implémenté
         fichier.write(HoursM.getValue() + "hr " + MinutesM.getValue() + "min " + SecondsM.getValue() + "sec" + "\n" + HoursN.getValue() + "hr " + MinutesN.getValue() + "min " + SecondsN.getValue() + "sec");
         */
-        fichier.write("group of " + TfWindowValue.getText() + " values");
+        fichier.write("the last " + TfWindowNValue.getText() + " events");
+        fichier.write("\n");
+        fichier.write("and the " + TfWindowMValue.getText() + " events");
         fichier.close();
     }
 }

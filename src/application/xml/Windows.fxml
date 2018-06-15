@@ -38,7 +38,8 @@
       <ComboBox fx:id="HoursN" layoutX="158.0" layoutY="233.0" prefHeight="25.0" prefWidth="63.0" />
       <ComboBox fx:id="MinutesN" layoutX="245.0" layoutY="233.0" prefHeight="25.0" prefWidth="63.0" />
       <ComboBox fx:id="SecondsN" layoutX="333.0" layoutY="233.0" prefHeight="25.0" prefWidth="63.0" />
-      <TextField fx:id="TfWindowValue" layoutX="98.0" layoutY="321.0" prefHeight="25.0" prefWidth="41.0" promptText="Enter an integer" text="3" />
+      <TextField fx:id="TfWindowMValue" layoutX="242.0" layoutY="321.0" prefHeight="25.0" prefWidth="41.0" promptText="Enter an integer" text="6" />
+      <Label layoutX="207.0" layoutY="325.0" text="m =" />
       <Label layoutX="98.0" layoutY="295.0" text="Choose an integer for window size value :">
          <font>
             <Font name="System Bold" size="12.0" />
@@ -53,5 +54,7 @@
             </Label>
          </children>
       </Pane>
+      <TextField fx:id="TfWindowNValue" layoutX="133.0" layoutY="321.0" prefHeight="25.0" prefWidth="41.0" promptText="Enter an integer" text="3" />
+      <Label layoutX="98.0" layoutY="325.0" text="n =" />
    </children>
 </AnchorPane>

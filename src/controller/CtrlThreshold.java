@@ -78,8 +78,8 @@ public class CtrlThreshold {
     /**
      * Check if the value is a float
      *
-     * @param string
-     * @return
+     * @param string string
+     * @return true or false
      */
     public boolean isAFloat(String string){
         return string.matches("^([+-]?\\d*\\.?\\d*)$") && !string.equals("");

@@ -1,11 +1,9 @@
 SelfCorrelated
-standard input
-extract new data
-group of 3 values
-Other 523
+pre-recorded input
+extract a file in value.txt
+the last 3 events
+and the 6 events
+Direct Value
 average of the stream over the entire window
-Size
-average of the stream over the entire window
-Euclidean distance
 Scalar difference
-are below the value of 1
+are below the value of 0.5

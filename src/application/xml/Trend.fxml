@@ -15,7 +15,7 @@
       <Label layoutX="77.0" layoutY="26.0" text="Select the element of each event to use for computing the trend :" />
       <Pane fx:id="PaneGroup" layoutX="77.0" layoutY="43.0" prefHeight="86.0" prefWidth="264.0">
          <children>
-            <RadioButton fx:id="RbDirectSize" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Direct value">
+            <RadioButton fx:id="RbDirectSize" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" selected="true" text="Direct value">
                <toggleGroup>
                   <ToggleGroup fx:id="group" />
                </toggleGroup>
@@ -26,6 +26,15 @@
             <RadioButton fx:id="RbDestination" layoutX="166.0" layoutY="32.0" mnemonicParsing="false" text="Destination" toggleGroup="$group" />
             <TextField fx:id="TxtOther" layoutX="73.0" layoutY="54.0" prefHeight="25.0" prefWidth="66.0" />
             <Button fx:id="BtnRegister" layoutX="147.0" layoutY="54.0" mnemonicParsing="false" onMouseClicked="#Check" prefHeight="17.0" prefWidth="95.0" text="Register Value" />
+            <Pane layoutX="-22.0" prefHeight="86.0" prefWidth="338.0">
+               <children>
+                  <Label layoutX="-4.0" layoutY="25.0" prefHeight="36.0" prefWidth="346.0" text="This part is not implemented">
+                     <font>
+                        <Font name="System Bold Italic" size="25.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
          </children>
       </Pane>
       <Label layoutX="77.0" layoutY="139.0" text="Select the trend to compute over the stream" />

@@ -41,5 +41,10 @@
       <TextField fx:id="TfPort" layoutX="122.0" layoutY="294.0" prefHeight="25.0" prefWidth="57.0" />
       <Label layoutX="188.0" layoutY="298.0" text="Port" />
       <Button layoutX="221.0" layoutY="294.0" mnemonicParsing="false" onMouseClicked="#Check" prefHeight="25.0" prefWidth="95.0" text="Register Value" />
+      <Label layoutX="212.0" layoutY="192.0" prefHeight="17.0" prefWidth="228.0" text="Fonctionnel mais mise en place difficile">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

@@ -30,6 +30,9 @@ public class CtrlInputStream implements Initializable {
     @FXML
     private TextField TfPort;
 
+    //private Desktop desktop = Desktop.getDesktop();
+    private static String Filename = null;
+
     public TextField getTfPort() {
         return TfPort;
     }
@@ -50,8 +53,11 @@ public class CtrlInputStream implements Initializable {
         return LblBrowserL;
     }
 
-    //private Desktop desktop = Desktop.getDesktop();
-    private String Filename = null;
+    public String getFilename(){return Filename;}
+
+    public void setFilename(String filename) {
+        this.Filename = filename;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -61,7 +67,7 @@ public class CtrlInputStream implements Initializable {
                 final FileChooser fileChooser = new FileChooser();
                 fileChooser.setTitle("Select a log file");
                 FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
-                //fileChooser.getExtensionFilters().add(filter);
+                fileChooser.getExtensionFilters().add(filter);
                 Node node = (Node) event.getSource();
                 File file = fileChooser.showOpenDialog(node.getScene().getWindow());
                 if (file != null) {
@@ -87,7 +93,7 @@ public class CtrlInputStream implements Initializable {
         try {
             if (RbPreRecorded.isSelected() && !LblBrowserL.getText().equals("No file selected")){
                 fichier.write ("pre-recorded input");
-                fichier.write("\nextract a fiel called " + Filename);
+                fichier.write("\nextract a file in " + Filename);
             } else if (RbStandardInput.isSelected()){
                 fichier.write ("standard input");
                 fichier.write("\nextract new data");
@@ -110,7 +116,7 @@ public class CtrlInputStream implements Initializable {
 
     private void openFile(File file) {
         LblBrowserL.setText(file.getName());
-        Filename = file.getName();
+        setFilename(file.getName());
     }
 
     /**
