@@ -21,7 +21,6 @@ import ca.uqac.lif.cep.Connector;
 import ca.uqac.lif.cep.GroupProcessor;
 import ca.uqac.lif.cep.functions.*;
 import ca.uqac.lif.cep.tmf.ReplaceWith;
-import ca.uqac.lif.cep.tmf.Slice;
 import ca.uqac.lif.cep.util.Numbers;
 
 import static ca.uqac.lif.cep.Connector.INPUT;
@@ -30,23 +29,50 @@ import static ca.uqac.lif.cep.Connector.OUTPUT;
 /**
  * Trend distance based on the statistical distribution of symbols in a
  * stream.
+ * <p>
+ * The parameters of the <tt>TrendDistance</tt> processor in this example
+ * are as follows:
+ * <table>
+ * <tr><th>Parameter</th><th>Value</th></tr>
+ * <tr>
+ *   <td><img src="{@docRoot}/doc-files/mining/trenddistance/WidthParameter.png" alt="Window Width" title="The width of the window"></td>
+ *   <td>9</td>
+ * </tr>
+ * <tr>
+ *   <td><img src="{@docRoot}/doc-files/mining/trenddistance/BetaProcessor.png" alt="Beta processor" title="The processor that computes the pattern over the current input stream"></td>
+ *   <td><img src="{@docRoot}/doc-files/mining/trenddistance/SymbolDistribution-PatternProcessor.png" alt="Processor chain"></td>
+ * </tr>
+ * <tr>
+ *   <td><img src="{@docRoot}/doc-files/mining/trenddistance/PatternParameter.png" alt="Reference Pattern" title="The reference pattern"></td>
+ *   <td>A map that associates each symbol with a number of occurrences. The map is:<table><tr><th>a</th><td>6</td></tr><tr><th>b</th><td>1</td></tr><tr><th>c</th><td>2</td></tr></table></td>
+ * </tr>
+ * <tr>
+ *   <td><img src="{@docRoot}/doc-files/mining/trenddistance/DistanceFunction.png" alt="Distance Function" title="The function that computes the distance with respect to the reference pattern"></td>
+ *   <td><img src="{@docRoot}/doc-files/mining/MapDistance.png" alt="Distance Function"> ({@link BeepBeep.MapDistance MapDistance})</td>
+ * </tr>
+ * <tr>
+ *   <td><img src="{@docRoot}/doc-files/mining/trenddistance/ComparisonFunction.png" alt="Comparison Function" title="The function that compares that distance with a given threshold"></td>
+ *   <td><img src="{@docRoot}/doc-files/mining/LessThanOrEqual.png" alt="&leq;"></td>
+ * </tr>
+ * <tr>
+ *   <td><img src="{@docRoot}/doc-files/mining/trenddistance/DistanceThreshold.png" alt="Distance Threshold" title="The distance threshold"></td>
+ *   <td>2</td>
+ * </tr>
+
+ * </table>
+ * 
+ * @author Sylvain Hallé
+ *
  */
-public class SymbolDistribution extends GroupProcessor
-{
+public class SymbolDistribution extends GroupProcessor {
+
 	public SymbolDistribution() {
 		super(1, 1);
-		GroupProcessor counter = new GroupProcessor(1, 1);
-		{
-			ReplaceWith one = new ReplaceWith(new Constant(1));
-			counter.associateInput(INPUT, one, INPUT);
-			Cumulate sum_one = new Cumulate(new CumulativeFunction<Number>(Numbers.addition));
-			Connector.connect(one, sum_one);
-			counter.associateOutput(OUTPUT, sum_one, OUTPUT);
-			counter.addProcessors(one, sum_one);
-		}
-		Slice slicer = new Slice(new IdentityFunction(1), counter);
-		addProcessors(slicer);
-		associateInput(0,slicer,0);
-		associateOutput(0,slicer,0);
+		ReplaceWith one = new ReplaceWith(new Constant(1));
+		associateInput(INPUT, one, INPUT);
+		Cumulate sum_one = new Cumulate(new CumulativeFunction<Number>(Numbers.addition));
+		Connector.connect(one, sum_one);
+		associateOutput(OUTPUT, sum_one, OUTPUT);
+		addProcessors(one, sum_one);
 	}
 }

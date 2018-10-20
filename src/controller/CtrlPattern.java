@@ -15,7 +15,7 @@ import java.util.ResourceBundle;
  * package: application.xml
  */
 
-public class CtrlPattern implements Initializable {
+public class CtrlPattern implements Initializable, Data {
 
     @FXML
     public RadioButton RbSelfCorrelated, RbPatternBased;
@@ -49,6 +49,7 @@ public class CtrlPattern implements Initializable {
      *
      * @throws IOException
      */
+    @Override
     public void writeData() throws IOException {
         //create the file if not created
         File file = new File("./src/txt/Choices.txt");

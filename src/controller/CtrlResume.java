@@ -33,8 +33,8 @@ public class CtrlResume implements Initializable {
     private ArrayList<String> StringData; //String to write the resume
     private File file;
 
-    private TrendDistance<Number,Number,Number> trendDistance;
-    private SelfCorrelatedTrendDistance<Number,Number,Number> selfCorrelatedTrendDistance;
+    private TrendDistance<Number,Number,Number> trendDistance;  //object to save the new trend distance generated
+    private SelfCorrelatedTrendDistance<Number,Number,Number> selfCorrelatedTrendDistance;  //object to save the new self-correlated trend distance generated
 
     private Number Pattern = null;
     private int m = -1;
@@ -122,7 +122,7 @@ public class CtrlResume implements Initializable {
             /*} else if (sCurrentLine.contains("hr")) {
                 StringData.add(sCurrentLine);
                 System.out.println(sCurrentLine);*/
-            } else if (sCurrentLine.contains(" events")) {
+            } else if (sCurrentLine.contains("events")) {
                 StringData.add(sCurrentLine);
                 System.out.println(sCurrentLine);
             } else if (sCurrentLine.contains("distance") || sCurrentLine.equals("Scalar difference") || sCurrentLine.equals("Ratio")) {
@@ -198,7 +198,9 @@ public class CtrlResume implements Initializable {
                 BetaPrint = "new SymbolDistribution()";
                 System.out.println("RESULT : Beta = new SymbolDistribution()");
             } else if (s.equals("distribution of values observed in the window")) {
-                //Beta =
+                Beta = new SymbolDistribution();
+                BetaPrint = "new SymbolDistribution()";
+                System.out.println("RESULT : Beta = new SymbolDistribution()");
             } else if (s.equals("sum of all values over the window")){
                 Beta = new CumulativeSum();
                 BetaPrint = "new CumulativeSum()";
@@ -294,10 +296,13 @@ public class CtrlResume implements Initializable {
             e.printStackTrace();
         }
         if (s1.equals("pre-recorded input")){
+            System.out.println("PreRecordedLog()");
             PreRecordedLog();
         } else if (s1.equals("standard input")){
+            System.out.println("StandardInput()");
             StandardInput();
         } else if (s1.equals("TCP Connection input")){
+            System.out.println("TCPConnection()");
             TCPConnection();
         } else {
             System.out.println("Input type not found");
@@ -305,6 +310,10 @@ public class CtrlResume implements Initializable {
         }
     }
 
+    /**
+     * Function to write text in the file Network.txt
+     * if Pré-recorded Log is selected
+     */
     private void PreRecordedLog(){
         try {
             //write new informations
@@ -319,19 +328,25 @@ public class CtrlResume implements Initializable {
 
             if (s1.equals("SelfCorrelated")) {
                 /*-------------Header---------------*/
-                if (s2.contains("extract a file in")) { //pre-recorded input
-                    if (DeltaPrint.equals("Numbers.subtraction") || DeltaPrint.equals("Numbers.division")) {
-                        fichier.write("String file = \"../txt/" + FileName + "\";\n" +
-                                "ArrayList<Number> arrayList = new ArrayList<Number>();\n" +
-                                "new ReadFile(file,arrayList);\n" +
-                                "\n" +
-                                "QueueSource source = new QueueSource();\n" +
-                                "for (Number element : arrayList) {\n" +
-                                "    source.setEvents(element);\n" +
-                                "}\n\n");
-                    }else if (DeltaPrint.equals("ManhattanDistance") || DeltaPrint.equals("EuclideanDistance")) {
-                        fichier.write("");
-                    }
+                if (DeltaPrint.equals("Numbers.subtraction") || DeltaPrint.equals("Numbers.division")) {
+                    fichier.write("String file = \"../txt/" + FileName + "\";\n" +
+                            "ArrayList<Number> arrayList = new ArrayList<Number>();\n" +
+                            "new ReadFile(file,arrayList);\n" +
+                            "\n" +
+                            "QueueSource source = new QueueSource();\n" +
+                            "for (Number element : arrayList) {\n" +
+                            "    source.setEvents(element);\n" +
+                            "}\n\n");
+                } else if (DeltaPrint.equals("ManhattanDistance") || DeltaPrint.equals("EuclideanDistance")) {
+                    fichier.write("String file = \"../txt/" + FileName + "\";\n" +
+                            "ArrayList<Number> arrayList = new ArrayList<Number>();\n" +
+                            "new ReadFile(file,arrayList);\n" +
+                            "\n" +
+                            "QueueSource source = new QueueSource();\n" +
+                            "for (Number element : arrayList) {\n" +
+                            "    DoublePoint dp = DoublePointCast.getDoublePoint(element);\n" +
+                            "    source.setEvents(dp);\n" +
+                            "}\n\n");
                 }
 
                 /*------------Body-------------*/
@@ -357,21 +372,39 @@ public class CtrlResume implements Initializable {
                         "   groupProcessor.addProcessors(fork, trim, win1, win2, distance, too_far);\n" +
                         "}\n\n" +
                         "Connector.connect(source,groupProcessor);\n" +
-                        "Pullable p = groupProcessor.getPullableOutput();\n");
-
-                /*------------Footer-----------*/
-                if (s2.contains("extract a file in")) { //pre-recorded input
-                    fichier.write("for (int i = 0; i < 10; i++) {\n" +
-                            "   System.out.println(p.pull());\n" +
-                            "}");
-                }
-
+                        "Pullable p = groupProcessor.getPullableOutput();\n" +
+                        "for (int i = 0; i < arrayList.size(); i++) {\n" +
+                        "   System.out.println(p.pull());\n" +
+                        "}");
 
 
             } else if (s1.contains("Static")) {
+                /*-------------Header---------------*/
+                if (DeltaPrint.equals("Numbers.subtraction") || DeltaPrint.equals("Numbers.division")) {
+                    fichier.write("String file = \"../txt/" + FileName + "\";\n" +
+                            "ArrayList<Number> arrayList = new ArrayList<Number>();\n" +
+                            "new ReadFile(file,arrayList);\n" +
+                            "\n" +
+                            "QueueSource source = new QueueSource();\n" +
+                            "for (Number element : arrayList) {\n" +
+                            "    source.setEvents(element);\n" +
+                            "}\n\n");
+                } else if (DeltaPrint.equals("ManhattanDistance") || DeltaPrint.equals("EuclideanDistance")) {
+                    fichier.write("String file = \"../txt/" + FileName + "\";\n" +
+                            "ArrayList<Number> arrayList = new ArrayList<Number>();\n" +
+                            "new ReadFile(file,arrayList);\n" +
+                            "\n" +
+                            "QueueSource source = new QueueSource();\n" +
+                            "for (Number element : arrayList) {\n" +
+                            "    DoublePoint dp = DoublePointCast.getDoublePoint(element);\n" +
+                            "    source.setEvents(dp);\n" +
+                            "}\n\n");
+                }
+
+                /*------------Body-------------*/
                 fichier.write("GroupProcessor groupProcessor = new GroupProcessor(1,1);\n" +
                         "{\n" +
-                        "   Window wp = new Window(beta, " + n + ");\n" +
+                        "   Window wp = new Window(" + BetaPrint + ", " + n + ");\n" +
                         "   groupProcessor.associateInput(INPUT, window, INPUT);\n" +
                         "   ApplyFunction distance = new ApplyFunction(new FunctionTree(" + DeltaPrint + ",\n" +
                         "       new Constant(" + Pattern + "),\n" +
@@ -388,7 +421,7 @@ public class CtrlResume implements Initializable {
                         "}\n\n" +
                         "Connector.connect(source,groupProcessor);\n" +
                         "Pullable p = groupProcessor.getPullableOutput();\n" +
-                        "for (int i = 0; i < 10; i++) {\n" +
+                        "for (int i = 0; i < arrayList.size(); i++) {\n" +
                         "   System.out.println(p.pull());\n" +
                         "}");
             }
@@ -405,6 +438,10 @@ public class CtrlResume implements Initializable {
         }
     }
 
+    /**
+     * Function to write text in the file Network.txt
+     * if standard input is selected
+     */
     private void StandardInput(){
         try{
             //write new informations
@@ -412,43 +449,68 @@ public class CtrlResume implements Initializable {
 
             FileReader fileReader2 = new FileReader("./src/txt/Choices.txt");
             BufferedReader br2 = new BufferedReader(fileReader2);
-            br2.readLine(); br2.readLine();
             String s = br2.readLine();
             if (s.equals("SelfCorrelated")) {
-                if (s.contains("extract new data")) { //standard input
+                /*-------------Header---------------*/
+                if (DeltaPrint.equals("Numbers.subtraction") || DeltaPrint.equals("Numbers.division")) {
                     fichier.write("ReadStringStream reader = new ReadStringStream(System.in);\n" +
                             "StringToInteger stringToInteger = new StringToInteger();\n" +
                             "ApplyFunction source = new ApplyFunction(stringToInteger);\n" +
                             "connect(reader,source);\n" +
                             "reader.setIsFile(false);\n\n");
-                    fichier.write("GroupProcessor groupProcessor = new GroupProcessor(1,1);\n" +
-                            "{\n" +
-                            "   Fork fork = new Fork(2);\n" +
-                            "   groupProcessor.associateInput(INPUT, fork, INPUT);\n" +
-                            "   Trim trim = new Trim(" + m + ");\n" +
-                            "   Connector.connect(fork, TOP, trim, INPUT);\n" +
-                            "   Window win1 = new Window(" + BetaPrint + ".duplicate(), " + n + ");\n" +
-                            "   Connector.connect(trim, win1);\n" +
-                            "   Window win2 = new Window(" + BetaPrint + ".duplicate(), " + m + ");\n" +
-                            "   Connector.connect(fork, BOTTOM, win2, INPUT);\n" +
-                            "   ApplyFunction distance = new ApplyFunction(" + DeltaPrint + ");\n" +
-                            "   Connector.connect(win1, OUTPUT, distance, TOP);\n" +
-                            "   Connector.connect(win2, OUTPUT, distance, BOTTOM);\n" +
-                            "   ApplyFunction too_far = new ApplyFunction(new FunctionTree(" + compPrint + ",\n" +
-                            "       new StreamVariable(0),\n" +
-                            "       new Constant(" + d + ")\n" +
-                            "       ));\n" +
-                            "   Connector.connect(distance, too_far);\n" +
-                            "   groupProcessor.associateOutput(OUTPUT, too_far, OUTPUT);\n" +
-                            "   groupProcessor.addProcessors(fork, trim, win1, win2, distance, too_far);\n" +
-                            "}\n\n" +
-                            "Connector.connect(source,groupProcessor);\n" +
-                            "Pullable p = groupProcessor.getPullableOutput();\n");
-                    fichier.write("for (Object o: p) {\n" +
-                            "    System.out.println(o);\n" +
-                            "}");
+                }else if (DeltaPrint.equals("ManhattanDistance") || DeltaPrint.equals("EuclideanDistance")) {
+                    fichier.write("ReadStringStream reader = new ReadStringStream(System.in);\n" +
+                            "StringToInteger stringToInteger = new StringToInteger();\n" +
+                            "ApplyFunction source = new ApplyFunction(stringToInteger);\n" +
+                            "connect(reader,source);\n" +
+                            "reader.setIsFile(false);\n\n");
                 }
+
+                /*------------Body-------------*/
+                fichier.write("GroupProcessor groupProcessor = new GroupProcessor(1,1);\n" +
+                        "{\n" +
+                        "   Fork fork = new Fork(2);\n" +
+                        "   groupProcessor.associateInput(INPUT, fork, INPUT);\n" +
+                        "   Trim trim = new Trim(" + m + ");\n" +
+                        "   Connector.connect(fork, TOP, trim, INPUT);\n" +
+                        "   Window win1 = new Window(" + BetaPrint + ".duplicate(), " + n + ");\n" +
+                        "   Connector.connect(trim, win1);\n" +
+                        "   Window win2 = new Window(" + BetaPrint + ".duplicate(), " + m + ");\n" +
+                        "   Connector.connect(fork, BOTTOM, win2, INPUT);\n" +
+                        "   ApplyFunction distance = new ApplyFunction(" + DeltaPrint + ");\n" +
+                        "   Connector.connect(win1, OUTPUT, distance, TOP);\n" +
+                        "   Connector.connect(win2, OUTPUT, distance, BOTTOM);\n" +
+                        "   ApplyFunction too_far = new ApplyFunction(new FunctionTree(" + compPrint + ",\n" +
+                        "       new StreamVariable(0),\n" +
+                        "       new Constant(" + d + ")\n" +
+                        "       ));\n" +
+                        "   Connector.connect(distance, too_far);\n" +
+                        "   groupProcessor.associateOutput(OUTPUT, too_far, OUTPUT);\n" +
+                        "   groupProcessor.addProcessors(fork, trim, win1, win2, distance, too_far);\n" +
+                        "}\n\n" +
+                        "Connector.connect(source,groupProcessor);\n" +
+                        "Pullable p = groupProcessor.getPullableOutput();\n" +
+                        "for (Object o: p) {\n" +
+                        "    System.out.println(o);\n" +
+                        "}");
+
             } else if (s.contains("Static")) {
+                /*-------------Header---------------*/
+                if (DeltaPrint.equals("Numbers.subtraction") || DeltaPrint.equals("Numbers.division")) {
+                    fichier.write("ReadStringStream reader = new ReadStringStream(System.in);\n" +
+                            "StringToInteger stringToInteger = new StringToInteger();\n" +
+                            "ApplyFunction source = new ApplyFunction(stringToInteger);\n" +
+                            "connect(reader,source);\n" +
+                            "reader.setIsFile(false);\n\n");
+                }else if (DeltaPrint.equals("ManhattanDistance") || DeltaPrint.equals("EuclideanDistance")) {
+                    fichier.write("ReadStringStream reader = new ReadStringStream(System.in);\n" +
+                            "StringToInteger stringToInteger = new StringToInteger();\n" +
+                            "ApplyFunction source = new ApplyFunction(stringToInteger);\n" +
+                            "connect(reader,source);\n" +
+                            "reader.setIsFile(false);\n\n");
+                }
+
+                /*------------Body-------------*/
                 fichier.write("GroupProcessor groupProcessor = new GroupProcessor(1,1);\n" +
                         "{\n" +
                         "   Window wp = new Window(beta, " + n + ");\n" +
@@ -468,8 +530,8 @@ public class CtrlResume implements Initializable {
                         "}\n\n" +
                         "Connector.connect(source,groupProcessor);\n" +
                         "Pullable p = groupProcessor.getPullableOutput();\n" +
-                        "for (int i = 0; i < 10; i++) {\n" +
-                        "   System.out.println(p.pull());\n" +
+                        "for (Object o: p) {\n" +
+                        "    System.out.println(o);\n" +
                         "}");
             }
             fichier.close();
@@ -485,8 +547,102 @@ public class CtrlResume implements Initializable {
         }
     }
 
+    /**
+     * Function to write text in the file Network.txt
+     * if TCP Connection is selected
+     */
+    //TODO
     private void TCPConnection(){
+        try{
+            //write new informations
+            FileWriter fichier = new FileWriter(file);
 
+            FileReader fileReader2 = new FileReader("./src/txt/Choices.txt");
+            BufferedReader br2 = new BufferedReader(fileReader2);
+            String s = br2.readLine();
+            if (s.equals("SelfCorrelated")) {
+                /*-------------Header---------------*/
+                if (DeltaPrint.equals("Numbers.subtraction") || DeltaPrint.equals("Numbers.division")) {
+                    //TODO
+                    fichier.write("");
+                }else if (DeltaPrint.equals("ManhattanDistance") || DeltaPrint.equals("EuclideanDistance")) {
+                    //TODO
+                    fichier.write("");
+                }
+
+                /*------------Body-------------*/
+                fichier.write("GroupProcessor groupProcessor = new GroupProcessor(1,1);\n" +
+                        "{\n" +
+                        "   Fork fork = new Fork(2);\n" +
+                        "   groupProcessor.associateInput(INPUT, fork, INPUT);\n" +
+                        "   Trim trim = new Trim(" + m + ");\n" +
+                        "   Connector.connect(fork, TOP, trim, INPUT);\n" +
+                        "   Window win1 = new Window(" + BetaPrint + ".duplicate(), " + n + ");\n" +
+                        "   Connector.connect(trim, win1);\n" +
+                        "   Window win2 = new Window(" + BetaPrint + ".duplicate(), " + m + ");\n" +
+                        "   Connector.connect(fork, BOTTOM, win2, INPUT);\n" +
+                        "   ApplyFunction distance = new ApplyFunction(" + DeltaPrint + ");\n" +
+                        "   Connector.connect(win1, OUTPUT, distance, TOP);\n" +
+                        "   Connector.connect(win2, OUTPUT, distance, BOTTOM);\n" +
+                        "   ApplyFunction too_far = new ApplyFunction(new FunctionTree(" + compPrint + ",\n" +
+                        "       new StreamVariable(0),\n" +
+                        "       new Constant(" + d + ")\n" +
+                        "       ));\n" +
+                        "   Connector.connect(distance, too_far);\n" +
+                        "   groupProcessor.associateOutput(OUTPUT, too_far, OUTPUT);\n" +
+                        "   groupProcessor.addProcessors(fork, trim, win1, win2, distance, too_far);\n" +
+                        "}\n\n" +
+                        "Connector.connect(source,groupProcessor);\n" +
+                        "Pullable p = groupProcessor.getPullableOutput();\n" +
+                        "for (Object o: p) {\n" +
+                        "    System.out.println(o);\n" +
+                        "}");
+
+            } else if (s.contains("Static")) {
+                /*-------------Header---------------*/
+                if (DeltaPrint.equals("Numbers.subtraction") || DeltaPrint.equals("Numbers.division")) {
+                    //TODO
+                    fichier.write("");
+                }else if (DeltaPrint.equals("ManhattanDistance") || DeltaPrint.equals("EuclideanDistance")) {
+                    //TODO
+                    fichier.write("");
+                }
+
+                /*------------Body-------------*/
+                fichier.write("GroupProcessor groupProcessor = new GroupProcessor(1,1);\n" +
+                        "{\n" +
+                        "   Window wp = new Window(beta, " + n + ");\n" +
+                        "   groupProcessor.associateInput(INPUT, window, INPUT);\n" +
+                        "   ApplyFunction distance = new ApplyFunction(new FunctionTree(" + DeltaPrint + ",\n" +
+                        "       new Constant(" + Pattern + "),\n" +
+                        "       new StreamVariable(0)\n" +
+                        "       ));\n" +
+                        "   Connector.connect(window, distance);\n" +
+                        "   ApplyFunction too_far = new ApplyFunction(new FunctionTree(" + compPrint + ",\n" +
+                        "       new StreamVariable(0),\n" +
+                        "       new Constant(" + d + ")\n" +
+                        "       ));\n" +
+                        "   Connector.connect(distance, too_far);\n" +
+                        "   groupProcessor.associateOutput(OUTPUT, too_far, OUTPUT);\n" +
+                        "   groupProcessor.addProcessors(window, distance, too_far);\n" +
+                        "}\n\n" +
+                        "Connector.connect(source,groupProcessor);\n" +
+                        "Pullable p = groupProcessor.getPullableOutput();\n" +
+                        "for (Object o: p) {\n" +
+                        "    System.out.println(o);\n" +
+                        "}");
+            }
+            fichier.close();
+            fileReader2.close();
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(null);
+            alert.setTitle("File saved");
+            alert.setContentText("New file Network.txt saved");
+            alert.showAndWait();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     /**

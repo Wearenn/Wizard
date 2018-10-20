@@ -11,7 +11,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class CtrlWindows implements Initializable {
+/**
+ * Controller for the third page Window.fxml
+ * package: application.xml
+ */
+
+public class CtrlWindows implements Initializable, Data {
 
     @FXML
     private ComboBox<Integer> HoursM, HoursN, MinutesM, MinutesN, SecondsM, SecondsN;
@@ -42,6 +47,7 @@ public class CtrlWindows implements Initializable {
      *
      * @throws IOException
      */
+    @Override
     public void writeData() throws IOException {
         //write new informations
         FileWriter fichier = new FileWriter(new File("./src/txt/Choices.txt"), true);

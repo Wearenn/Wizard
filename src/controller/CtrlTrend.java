@@ -7,7 +7,12 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class CtrlTrend {
+/**
+ * Controller for the fourth page Trend.fxml
+ * package: application.xml
+ */
+
+public class CtrlTrend implements Data {
 
     @FXML
     private RadioButton RbDirectSize, RbSize, RbOther, RbSource, RbDestination;
@@ -62,6 +67,12 @@ public class CtrlTrend {
         return TxtOther;
     }
 
+    /**
+     * We save in file "Choices.txt" the id of the user choice
+     *
+     * @throws IOException
+     */
+    @Override
     public void writeData() throws IOException {
         //write new informations
         FileWriter fichier = new FileWriter(new File("./src/txt/Choices.txt"),true);

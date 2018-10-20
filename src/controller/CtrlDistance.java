@@ -7,7 +7,12 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class CtrlDistance {
+/**
+ * Controller for the fifth page Distance.fxml
+ * package: application.xml
+ */
+
+public class CtrlDistance implements Data {
 
     @FXML 
     private RadioButton RbManhattan, RbEuclidean, RbScalar, RbRatio;
@@ -33,6 +38,7 @@ public class CtrlDistance {
      *
      * @throws IOException
      */
+    @Override
     public void writeData() throws IOException {
 
         //write new informations

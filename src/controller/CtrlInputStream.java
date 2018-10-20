@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
  * package: application.xml
  */
 
-public class CtrlInputStream implements Initializable {
+public class CtrlInputStream implements Initializable, Data {
 
     @FXML
     private RadioButton RbPreRecorded, RbTCPConnection, RbStandardInput;
@@ -30,7 +30,6 @@ public class CtrlInputStream implements Initializable {
     @FXML
     private TextField TfPort;
 
-    //private Desktop desktop = Desktop.getDesktop();
     private static String Filename = null;
 
     public TextField getTfPort() {
@@ -53,10 +52,8 @@ public class CtrlInputStream implements Initializable {
         return LblBrowserL;
     }
 
-    public String getFilename(){return Filename;}
-
     public void setFilename(String filename) {
-        this.Filename = filename;
+        Filename = filename;
     }
 
     @Override
@@ -73,7 +70,6 @@ public class CtrlInputStream implements Initializable {
                 if (file != null) {
                     openFile(file);
                 }
-                //fileChooser();
             }
         });
     }
@@ -85,6 +81,7 @@ public class CtrlInputStream implements Initializable {
      *
      * @throws IOException
      */
+    @Override
     public void writeData() throws IOException {
         //write new informations
         FileWriter fichier = new FileWriter(new File("./src/txt/Choices.txt"), true);
@@ -107,12 +104,6 @@ public class CtrlInputStream implements Initializable {
 
         fichier.close();
     }
-
-    /*@FXML protected void fileChooser(ActionEvent event) {
-        FileChooser chooser = new FileChooser();
-        chooser.setTitle("Open File");
-        File file = chooser.showOpenDialog(new Stage());
-    }*/
 
     private void openFile(File file) {
         LblBrowserL.setText(file.getName());

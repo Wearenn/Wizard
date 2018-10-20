@@ -9,7 +9,12 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class CtrlThreshold {
+/**
+ * Controller for the sixth page Threshold.fxml
+ * package: application.xml
+ */
+
+public class CtrlThreshold implements Data {
 
     @FXML
     private RadioButton RbSmaller, RbLarger;
@@ -33,6 +38,7 @@ public class CtrlThreshold {
      *
      * @throws IOException
      */
+    @Override
     public void writeData() throws IOException {
         //write new informations
         FileWriter fichier = new FileWriter(new File("./src/txt/Choices.txt"),true);

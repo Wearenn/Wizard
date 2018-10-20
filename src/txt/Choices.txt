@@ -1,6 +1,6 @@
 SelfCorrelated
-pre-recorded input
-extract a file in value.txt
+standard input
+extract new data
 the last 3 events
 and the 6 events
 Direct Value

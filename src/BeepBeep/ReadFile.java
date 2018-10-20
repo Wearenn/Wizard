@@ -15,7 +15,6 @@ public class ReadFile {
 
     public ReadFile(String file, ArrayList<Number> arrayList) {
         InputStream is = ReadFile.class.getResourceAsStream(file);
-        System.out.println(is.toString());
         ReadLines reader = new ReadLines(is);
         ApplyFunction cast = new ApplyFunction(Numbers.numberCast);
         Connector.connect(reader, cast);
